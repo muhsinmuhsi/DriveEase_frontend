@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 interface User {
     access_token: string;
@@ -17,6 +18,7 @@ interface Profile {
 const Googlelogin: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
     const [profile, setProfile] = useState<Profile | null>(null);
+    const navigate=useNavigate()
 
     const login = useGoogleLogin({
         onSuccess: (codeResponse: User) => setUser(codeResponse),
@@ -27,16 +29,16 @@ const Googlelogin: React.FC = () => {
       const {credential}=credentialresponse
       console.log(credential,'iam')
       try {
-        const response=await axios.post('http://localhost:8081/api/users/googleauth',{idtoken:credential},{
+        const response=await axios.post('http://localhost:8080/api/users/googleauth',{idtoken:credential},{
             headers:{
                 "Content-Type": "application/json", 
             }
         })
         toast.success(`${response.data.message}`||"registered successfully")
+        navigate('/')
       } catch (error) {
         console.log(error,'error');
-        toast.error(`something went wrong`)
-        
+        toast.error(`something went wrong`) 
       }
       
     }

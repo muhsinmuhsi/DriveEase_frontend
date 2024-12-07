@@ -22,8 +22,7 @@ const Register:React.FC = () => {
         username: "",
         email: "",
         password: "",
-        profileImg:null,
-        cpassword: "",  // Add this missing value
+        cpassword: "",  
       };
     
     const {values,errors,handleSubmit,handleBlur,handleChange}=useFormik({
@@ -40,18 +39,25 @@ const Register:React.FC = () => {
         //     console.log(pair[0] + ': ' + pair[1]);
         //   };
 
-          try {
-            const response= await axios.post('http://localhost:8081/api/users/register',values,{
-                headers:{
-                    "Content-Type": "application/json",
-                },
-            });
+        try {
+          const response = await axios.post(
+            'http://localhost:8080/api/users/register',
+            values,
+            {
+              withCredentials: true, // Include this in the config object
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+            if(response.status===200){
+            toast.success('otp sended to your email')
+            navigate('/Otpverify')
+            }
            
-            navigate('Login')
-            toast.success(`${values.username}registered success fully`)
           } catch (error) {
             console.log(error);
-            toast.error('something went wrong,try again')
+            toast.error(`something went wrong`)
             
           }
           
@@ -81,6 +87,7 @@ const Register:React.FC = () => {
         onBlur={handleBlur}
         onChange={handleChange}    
          />
+          {errors.username && <small className='text-red-600'>{errors.username}</small>}
     </div>
     <div className="mb-4">
       <label className="block text-black-700 text-sm font-bold mb-2" >
@@ -95,6 +102,7 @@ const Register:React.FC = () => {
        onBlur={handleBlur}
        onChange={handleChange}
        />
+        {errors.email && <small className='text-red-600'>{errors.email}</small>}
     </div>
     <div className="mb-6">
       <label className="block text-black-700 text-sm font-bold mb-2" >
@@ -109,6 +117,7 @@ const Register:React.FC = () => {
        onBlur={handleBlur}
        onChange={handleChange}
        />
+       {errors.password && <small className='text-red-600'>{errors.password}</small>}
     </div>
 
     <div className="mb-6">
@@ -124,6 +133,7 @@ const Register:React.FC = () => {
        onBlur={handleBlur}
        onChange={handleChange}
        />
+       {errors.cpassword && <small className='text-red-600'>{errors.cpassword}</small>}
     </div>
 
     <div className="flex flex-col items-center ">

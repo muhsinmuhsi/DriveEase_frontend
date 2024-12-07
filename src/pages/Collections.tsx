@@ -1,201 +1,141 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import Header from '../components/header/Header'
+import headerimg from '.././assets/Black  and White Modern Car Sale Facebook Post.png'
+import axios from 'axios'
+import { useAppDispatch, useAppSelector } from '../redux/hooks'
+import { addEconomyvehicle, addLuxuryVehicle, vehicleSchema } from '../redux/vehicleSlice'
+import { IoMdStar } from 'react-icons/io';
+import { IoMdStarOutline } from "react-icons/io";
+import { LuX } from 'react-icons/lu'
 
-const Collections = () => {
+
+const Collections = () => { 
+  const dispatch=useAppDispatch();
+  const vehicleeEconomy=useAppSelector((state)=>state.vehicle.EconomyCar)
+  const vehicleLuxury=useAppSelector((state)=>state.vehicle.LuxuryCar)
+
+ const fourVehicleEconomy=vehicleeEconomy.slice(0,4)
+ const fourVehicleLuxury=vehicleLuxury.slice(0,4)
+
+  useEffect(() => {
+    const fetchVehicles = async () => {
+      const economyCars = await vehicleByCategory("EconomyCar");
+      if (economyCars) {
+        dispatch(addEconomyvehicle(economyCars)); // Dispatch only if data exists
+      }
+
+      const LuxuryCars = await vehicleByCategory('Luxury')
+      if(LuxuryCars){
+        dispatch(addLuxuryVehicle(LuxuryCars));
+      }
+    };
+
+    fetchVehicles();
+
+    
+  }, [dispatch]); // Add dependencies here
+
+  const vehicleByCategory = async (category: string): Promise<vehicleSchema[] | undefined> => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/users/vehicles/category/${category}`);
+      console.log(response.data.data, "this from collection");
+      return response.data.data;
+    } catch (error) {
+      console.error("Error fetching vehicles:", error);
+      return undefined; // Handle error case
+    }
+  };
+  
+
+  
+  
   return (
     <div>
-   <section className="py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div
-          className="flex flex-col justify-center items-center gap-x-16 gap-y-5 xl:gap-28 lg:flex-row lg:justify-between max-lg:max-w-2xl mx-auto max-w-full"
-        >
-          <div className="w-full lg:w-1/2">
-            <img
-              src="https://pagedone.io/asset/uploads/1696230182.png"
-              alt="FAQ tailwind section"
-              className="w-full rounded-xl object-cover"
-            />
-          </div>
-          <div className="w-full lg:w-1/2">
-            <div className="lg:max-w-xl">
-              <div className="mb-6 lg:mb-16">
-                <h6
-                  className="text-lg text-center font-medium text-indigo-600 mb-2 lg:text-left"
-                >
-                  faqs
-                </h6>
-                <h2
-                  className="text-4xl text-center font-bold text-gray-900 leading-[3.25rem] mb-5 lg:text-left"
-                >
-                  Looking for answers?
-                </h2>
+      <Header/>
+
+      <div className='flex justify-center pb-32 border border-b-black'>
+        <img src={headerimg} alt="cat-image" />
+      </div>
+      <div>
+        <div className=''>
+          <h1 className='text-3xl md:text-5xl font-bold text-center p-6 '>Economy Car's</h1>
+        </div>
+        <div className=' flex  justify-center mt-14  border  border-b-black'>
+          {
+            fourVehicleEconomy.map((data)=>(
+              <div className='bg-green-100 w-60 h-80  p-3  m-3 rounded-xl'>
+                <div >
+                  <img src={data.image} alt="car-image" className='rounded-lg h-40 shadow-lg' />
+                </div>
+                <div>
+                  <p className='text-xl font-semibold pt-2'>{data.name}</p>
+                  <div className='flex'>
+                  <IoMdStar />
+                  <IoMdStar />
+                  <IoMdStar />
+                  <IoMdStar />
+                  <IoMdStarOutline />
+                  </div> 
+                  <div className='text-sm flex font-medium'>
+                  <p className='pr-2'>{data.fuelType}</p>
+                  <p className='pr-2'> {data.transmission} </p>
+                  <p className='pr-2'> {data.seatingCapacity}seats</p>
+                  </div>
+                  <div className='flex justify-center mt-4'>
+                    <button className='bg-black rounded-lg p-2 text-white'>Rent Now</button>
+                  </div>
+                  
+                  
+
+                </div>
+                
               </div>
-              <div className="accordion-group" data-accordion="default-accordion">
-                <div
-                  className="accordion pb-8 border-b border-solid border-gray-200 active"
-                  id="basic-heading-one-with-arrow-always-open"
-                >
-                  <button
-                    className="accordion-toggle group inline-flex items-center justify-between text-xl font-normal leading-8 text-gray-600 w-full transition duration-500 hover:text-indigo-600 accordion-active:text-indigo-600 accordion-active:font-medium always-open"
-                    aria-controls="basic-collapse-one-with-arrow-always-open"
-                  >
-                    <h5 >How to create an account?</h5>
-                    <svg
-                      className="text-gray-900 transition duration-500 group-hover:text-indigo-600 accordion-active:text-indigo-600 accordion-active:rotate-180"
-                      width="22"
-                      height="22"
-                      viewBox="0 0 22 22"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M16.5 8.25L12.4142 12.3358C11.7475 13.0025 11.4142 13.3358 11 13.3358C10.5858 13.3358 10.2525 13.0025 9.58579 12.3358L5.5 8.25"
-                        stroke="currentColor"
-                        stroke-width="1.6"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>
-                    </svg>
-                  </button>
-                  <div
-                    id="basic-collapse-one-with-arrow-always-open"
-                    className="accordion-content w-full px-0 overflow-hidden pr-4 active"
-                    style="max-height: 100px;"
-                    aria-labelledby="basic-heading-one-with-arrow-always-open"
-                  >
-                    <p className="text-base font-normal text-gray-600 ">
-                      To create an account, find the 'Sign up' or 'Create
-                      account' button, fill out the registration form with your
-                      personal information, and click 'Create account' or 'Sign
-                      up.' Verify your email address if needed, and then log in
-                      to start using the platform.
-                    </p>
-                  </div>
+            ))
+
+          }
+        </div>
+
+        <div>
+        <h1 className='text-3xl md:text-5xl font-bold text-center p-6'>Luxury Car's</h1>
+        </div>
+
+        <div className=' flex  justify-center mt-14'>
+        {
+            fourVehicleLuxury.map((data)=>(
+              <div className='bg-green-100 w-60 h-80  p-3  m-3 rounded-xl'>
+                <div >
+                  <img src={data.image} alt="car-image" className='rounded-lg h-40 shadow-lg' />
                 </div>
-                <div
-                  className="accordion py-8 border-b border-solid border-gray-200 "
-                  id="basic-heading-two-with-arrow-always-open"
-                >
-                  <button
-                    className="accordion-toggle group inline-flex items-center justify-between font-normal text-xl leading-8 text-gray-600 w-full transition duration-500 hover:text-indigo-600 accordion-active:text-indigo-600 accordion-active:font-medium"
-                    aria-controls="basic-collapse-two-with-arrow-always-open"
-                  >
-                    <h5>Have any trust issue?</h5>
-                    <svg
-                      className="text-gray-900 transition duration-500 group-hover:text-indigo-600 accordion-active:text-indigo-600 accordion-active:rotate-180"
-                      width="22"
-                      height="22"
-                      viewBox="0 0 22 22"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M16.5 8.25L12.4142 12.3358C11.7475 13.0025 11.4142 13.3358 11 13.3358C10.5858 13.3358 10.2525 13.0025 9.58579 12.3358L5.5 8.25"
-                        stroke="currentColor"
-                        stroke-width="1.6"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>
-                    </svg>
-                  </button>
-                  <div
-                    id="basic-collapse-two-with-arrow-always-open"
-                    className="accordion-content w-full px-0 overflow-hidden pr-4"
-                    aria-labelledby="basic-heading-two-with-arrow-always-open"
-                    style=""
-                  >
-                    <p className="text-base text-gray-500 font-normal">
-                      Our focus on providing robust and user-friendly content
-                      management capabilities ensures that you can manage your
-                      content with confidence, and achieve your content
-                      marketing goals with ease.
-                    </p>
+                <div>
+                  <p className='text-xl font-semibold pt-2'>{data.name}</p>
+                  <div className='flex'>
+                  <IoMdStar />
+                  <IoMdStar />
+                  <IoMdStar />
+                  <IoMdStar />
+                  <IoMdStarOutline />
+                  </div> 
+                  <div className='text-sm flex font-medium'>
+                  <p className='pr-2'>{data.fuelType}</p>
+                  <p className='pr-2'> {data.transmission} </p>
+                  <p className='pr-2'> {data.seatingCapacity}seats</p>
                   </div>
-                </div>
-                <div
-                  className="accordion py-8 border-b border-solid border-gray-200"
-                  id="basic-heading-three-with-arrow-always-open"
-                >
-                  <button
-                    className="accordion-toggle group inline-flex items-center justify-between text-xl font-normal leading-8 text-gray-600 w-full transition duration-500 hover:text-indigo-600 accordion-active:font-medium accordion-active:text-indigo-600"
-                    aria-controls="basic-collapse-three-with-arrow-always-open"
-                  >
-                    <h5>How can I reset my password?</h5>
-                    <svg
-                      className="text-gray-900 transition duration-500 group-hover:text-indigo-600 accordion-active:text-indigo-600 accordion-active:rotate-180"
-                      width="22"
-                      height="22"
-                      viewBox="0 0 22 22"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M16.5 8.25L12.4142 12.3358C11.7475 13.0025 11.4142 13.3358 11 13.3358C10.5858 13.3358 10.2525 13.0025 9.58579 12.3358L5.5 8.25"
-                        stroke="currentColor"
-                        stroke-width="1.6"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>
-                    </svg>
-                  </button>
-                  <div
-                    id="basic-collapse-three-with-arrow-always-open"
-                    className="accordion-content w-full px-0 overflow-hidden pr-4"
-                    aria-labelledby="basic-heading-three-with-arrow-always-open"
-                  >
-                    <p className="text-base text-gray-500 font-normal">
-                      Our focus on providing robust and user-friendly content
-                      management capabilities ensures that you can manage your
-                      content with confidence, and achieve your content
-                      marketing goals with ease.
-                    </p>
+                  <div className='flex justify-center mt-4'>
+                    <button className='bg-black rounded-lg p-2 text-white'>Rent Now</button>
                   </div>
+                  
+                  
+
                 </div>
-                <div
-                  className="accordion py-8 "
-                  id="basic-heading-four-with-arrow-always-open"
-                >
-                  <button
-                    className="accordion-toggle group inline-flex items-center justify-between text-xl font-normal leading-8 text-gray-600 w-full transition duration-500 hover:text-indigo-600 accordion-active:font-medium accordion-active:text-indigo-600"
-                    aria-controls="basic-collapse-four-with-arrow-always-open"
-                  >
-                    <h5>What is the payment process?</h5>
-                    <svg
-                      className="text-gray-900 transition duration-500 group-hover:text-indigo-600 accordion-active:text-indigo-600 accordion-active:rotate-180"
-                      width="22"
-                      height="22"
-                      viewBox="0 0 22 22"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M16.5 8.25L12.4142 12.3358C11.7475 13.0025 11.4142 13.3358 11 13.3358C10.5858 13.3358 10.2525 13.0025 9.58579 12.3358L5.5 8.25"
-                        stroke="currentColor"
-                        stroke-width="1.6"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      ></path>
-                    </svg>
-                  </button>
-                  <div
-                    id="basic-collapse-four-with-arrow-always-open"
-                    className="accordion-content w-full px-0 overflow-hidden pr-4"
-                    aria-labelledby="basic-heading-four-with-arrow-always-open"
-                  >
-                    <p className="text-base text-gray-500 font-normal">
-                      Our focus on providing robust and user-friendly content
-                      management capabilities ensures that you can manage your
-                      content with confidence, and achieve your content
-                      marketing goals with ease.
-                    </p>
-                  </div>
-                </div>
+                
               </div>
-            </div>
-          </div>
+            ))
+
+          }
+
         </div>
       </div>
-    </section>
-                                            
+   
     </div>
   )
 }

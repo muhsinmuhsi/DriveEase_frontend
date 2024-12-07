@@ -6,6 +6,7 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 import Googlelogin from './Googlelogin';
 import { useNavigate } from 'react-router-dom';
+import { RiAdminFill } from "react-icons/ri";
 
 const signupvalidation=yup.object({
         email: yup.string().email("Please enter valid email").required("Please enter email"),
@@ -28,7 +29,7 @@ const {values,errors,handleBlur,handleChange,handleSubmit}=useFormik({
 
 
     try {
-        const response=await axios.post('http://localhost:8081/api/users/Login',values,{
+        const response=await axios.post('http://localhost:8080/api/users/Login',values,{
             headers:{
               "Content-Type":"application/json",
             }
@@ -65,6 +66,7 @@ id="email"
  onBlur={handleBlur}
  onChange={handleChange}
  />
+ {errors.email && <small className='text-red-600'>{errors.email}</small>}
 </div>
 <div className="mb-6">
 <label className="block text-black-700 text-sm font-bold mb-2" >
@@ -79,6 +81,7 @@ id="email"
  onBlur={handleBlur}
  onChange={handleChange}
  />
+ {errors.password && <small className='text-red-600'>{errors.password}</small>}
 </div>
 
 
@@ -89,7 +92,9 @@ id="email"
 </button>
 <p className='text-xs'>Already haven't an account?<a className="inline-block align-baseline font-bold text-xs text-blue-500 hover:text-blue-800" href="#">sign up </a></p> 
 </div>
+<button className='pt-10'><RiAdminFill /></button>
 </form>
+
 </div>
 
 <div>
