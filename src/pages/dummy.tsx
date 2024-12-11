@@ -1,21 +1,73 @@
-import React from 'react'
-import logo from '../../assets/logo-transparent-png.png'
-import profile from '../../assets/account-6491185_640.png'
+import React from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { parse, isValid } from 'date-fns';
 
-const Header = () => {
+// Function to parse and validate the date format
+const validateDateTime = (value) => {
+  const parsedDate = parse(value, "EEE MMM dd yyyy HH:mm:ss 'GMT'xxx", new Date());
+  return isValid(parsedDate);
+};
+
+const validationSchema = Yup.object().shape({
+  pickupLocation: Yup.string().required('Pickup location is required'),
+  pickupDate: Yup.string()
+    .required('Pickup date is required')
+    .test('is-valid-date', 'Invalid date format', validateDateTime),
+  droffLocation: Yup.string().required('Dropoff location is required'),
+  dropoffDate: Yup.string()
+    .required('Dropoff date is required')
+    .test('is-valid-date', 'Invalid date format', validateDateTime),
+});
+
+
+const initialValues = {
+  pickupLocation: '',
+  pickupDate: '',
+  droffLocation: '',
+  dropoffDate: '',
+};
+
+const CarRentalForm = () => {
   return (
-    
-    <div className='flex justify-around'>
-      <div><img src={logo} alt=""className='w-40 h-10 m-4 ' /></div>
-      <div className='flex '>
-        <button href="" className=' hover:bg-green-400  hover:shadow-md rounded font-sans text-lg font-bold p-2 mt-2 focus:border-b-2 focus:border-black focus:bg-green-400 '>Home</button>
-        <button href="" className=' hover:bg-green-400  hover:shadow-md rounded font-sans text-lg font-bold p-2 mt-2 focus:border-b-2 focus:border-black focus:bg-green-400'>Collections</button>
-        <button href="" className=' hover:bg-green-400  hover:shadow-md rounded font-sans text-lg font-bold p-2 mt-2 focus:border-b-2 focus:border-black focus:bg-green-400'>Pricing</button>
-        <button href="" className=' hover:bg-green-400  hover:shadow-md rounded font-sans text-lg font-bold p-2 mt-2 focus:border-b-2 focus:border-black focus:bg-green-400'>FAQs</button>
-        <button href="" className=' hover:bg-green-400  hover:shadow-md rounded font-sans text-lg font-bold p-2 mt-2 focus:border-b-2 focus:border-black focus:bg-green-400'>Reviews</button>
-      </div>
-      <div className='mt-5 '><img src={profile} alt="" className='object w-10 h-10'/></div>
-    </div>
-  )
-}
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={(values) => {
+        console.log('Form submitted:', values);
+      }}
+    >
+      {() => (
+        <Form>
+          <div>
+            <label>Pickup Location</label>
+            <Field name="pickupLocation" />
+            <ErrorMessage name="pickupLocation" />
+          </div>
 
+          <div>
+            <label>Pickup Date</label>
+            <Field name="pickupDate" />
+            <ErrorMessage name="pickupDate" />
+          </div>
+
+          <div>
+            <label>Dropoff Location</label>
+            <Field name="droffLocation" />
+            <ErrorMessage name="droffLocation" />
+          </div>
+
+          <div>
+            <label>Dropoff Date</label>
+            <Field name="dropoffDate" />
+            <ErrorMessage name="dropoffDate" />
+          </div>
+
+          <button type="submit">Submit</button>
+        </Form>
+      )}
+    </Formik>
+  );
+};
+
+export default CarRentalForm;

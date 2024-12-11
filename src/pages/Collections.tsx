@@ -5,8 +5,9 @@ import axios from 'axios'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { addEconomyvehicle, addLuxuryVehicle, vehicleSchema } from '../redux/vehicleSlice'
 import { IoMdStar } from 'react-icons/io';
-import { IoMdStarOutline } from "react-icons/io";
-import { LuX } from 'react-icons/lu'
+import { IoMdStarOutline } from "react-icons/io"; 
+import { FaRegArrowAltCircleRight } from "react-icons/fa";
+import { Link } from 'react-router-dom'
 
 
 const Collections = () => { 
@@ -60,7 +61,8 @@ const Collections = () => {
         <div className=''>
           <h1 className='text-3xl md:text-5xl font-bold text-center p-6 '>Economy Car's</h1>
         </div>
-        <div className=' flex  justify-center mt-14  border  border-b-black'>
+        <div className=' flex flex-col border border-b-black '>
+          <div className=' flex  justify-center mt-14 '>
           {
             fourVehicleEconomy.map((data)=>(
               <div className='bg-green-100 w-60 h-80  p-3  m-3 rounded-xl'>
@@ -84,21 +86,22 @@ const Collections = () => {
                   <div className='flex justify-center mt-4'>
                     <button className='bg-black rounded-lg p-2 text-white'>Rent Now</button>
                   </div>
-                  
-                  
-
                 </div>
                 
               </div>
             ))
-
           }
+      </div>
+        <div className='flex justify-end '>
+         <Link to={"/vehicle/category/EconomyCar"}> <button className='p-2 bg-green-400 rounded-lg mr-5 mb-8 mt-5 hover:bg-green-600 font-semibold '>See More<FaRegArrowAltCircleRight className='inline ml-1' /></button></Link>
         </div>
-
+        </div>
+        
         <div>
         <h1 className='text-3xl md:text-5xl font-bold text-center p-6'>Luxury Car's</h1>
         </div>
 
+      <div className='border border-b-black'>
         <div className=' flex  justify-center mt-14'>
         {
             fourVehicleLuxury.map((data)=>(
@@ -121,7 +124,7 @@ const Collections = () => {
                   <p className='pr-2'> {data.seatingCapacity}seats</p>
                   </div>
                   <div className='flex justify-center mt-4'>
-                    <button className='bg-black rounded-lg p-2 text-white'>Rent Now</button>
+                    <button className='bg-black rounded-lg p-2 text-white font-semibold'>Rent Now</button>
                   </div>
                   
                   
@@ -134,10 +137,14 @@ const Collections = () => {
           }
 
         </div>
+        <div className='flex justify-end'>
+       <Link to={'/vehicle/category/LuxuryCar'}> <button className='p-2 bg-green-400 rounded-lg mr-5 mb-8 mt-5 hover:bg-green-600 font-semibold'>See More<FaRegArrowAltCircleRight className='inline ml-1' /></button></Link>
+        </div>
+      </div>
       </div>
    
     </div>
-  )
+  ) 
 }
 
 export default Collections

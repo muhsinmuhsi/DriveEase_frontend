@@ -8,14 +8,16 @@ import Workflow from "../components/features/Workflow";
 import Emailsubscribtion from "../components/features/Emailsubscribtion";
 import Datepickerdiv from "../components/features/Datepicker"
 import Footer from "../components/features/Footer";
+import carrentbanner from '../assets/carrent banner.jpg'
+import CarRentalForm from "./dummy";
 
 const Home = () => {
     
   return (
     <div>
      <Header/>
-     <div className='flex justify-center '>
-        <img src="https://www.evmwheels.com/uploads/banner/car/1731700506.jpg" alt="car image" className="rounded-3xl pt-28 "/>
+     <div className='flex justify-center pt-12 '>
+        <img src={carrentbanner}/>
      </div>
         
 
@@ -26,6 +28,7 @@ const Home = () => {
         <WhyDriveEase/>
         <Workflow/>
         <Emailsubscribtion/>
+        {/* <CarRentalForm/> */}
         <Footer/>
 
         

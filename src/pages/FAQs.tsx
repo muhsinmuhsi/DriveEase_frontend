@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import faqimage from '../assets/FAq image.jpg'
+import faqimage from '../assets/5175820.jpg'
 import Header from '../components/header/Header';
 import Footer from '../components/features/Footer';
+
 
 const FAQs = () => {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -28,7 +29,7 @@ const FAQs = () => {
             <div className="w-full lg:w-1/2">
               <div className="lg:max-w-xl">
                 <div className="mb-6 lg:mb-16">
-                  <h6 className="text-lg text-center font-medium text-indigo-600 mb-2 lg:text-left">
+                  <h6 className="text-lg text-center font-medium text-green-600 mb-2 lg:text-left">
                     FAQs
                   </h6>
                   <h2 className="text-4xl text-center font-bold text-gray-900 leading-[3.25rem] mb-5 lg:text-left">
@@ -43,7 +44,7 @@ const FAQs = () => {
                       onClick={() => toggleAccordion(1)}
                       className="w-full flex justify-between items-center text-xl font-medium text-gray-600 hover:text-indigo-600 focus:outline-none"
                     >
-                      <span>How to create an account?</span>
+                      <span>How do I book a car?</span>
                       <svg
                         className={`w-6 h-6 transform transition-transform ${
                           activeIndex === 1 ? 'rotate-180' : ''
@@ -64,10 +65,9 @@ const FAQs = () => {
                     {activeIndex === 1 && (
                       <div className="mt-4 text-gray-500 text-base">
                         <p>
-                          To create an account, find the 'Sign up' button, fill
-                          out the registration form, and click 'Create account.'
-                          Verify your email address if required, and then log in
-                          to access your account.
+                        Booking a car is simple! Browse through our car options, 
+                        select the one that suits your needs, pick your rental dates,
+                        and complete the booking by making payment..
                         </p>
                       </div>
                     )}
@@ -79,7 +79,7 @@ const FAQs = () => {
                       onClick={() => toggleAccordion(2)}
                       className="w-full flex justify-between items-center text-xl font-medium text-gray-600 hover:text-indigo-600 focus:outline-none"
                     >
-                      <span>Have any trust issues?</span>
+                      <span>What documents are required to rent a car?</span>
                       <svg
                         className={`w-6 h-6 transform transition-transform ${
                           activeIndex === 2 ? 'rotate-180' : ''
@@ -100,9 +100,8 @@ const FAQs = () => {
                     {activeIndex === 2 && (
                       <div className="mt-4 text-gray-500 text-base">
                         <p>
-                          Our platform ensures secure and trustworthy content
-                          management to help you achieve your goals with
-                          confidence and ease.
+                        You’ll need a valid driver’s license, an identity proof (such as an Aadhaar card or passport),
+                         and a credit or debit card for payment.
                         </p>
                       </div>
                     )}
