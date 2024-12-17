@@ -22,7 +22,7 @@ const Login = () => {
      password:"",
    }
     
-const {values,errors,handleBlur,handleChange,handleSubmit}=useFormik({
+const {errors,handleBlur,handleChange,handleSubmit}=useFormik({
    initialValues,
    validationSchema:signupvalidation,
    onSubmit:async(values)=>{
@@ -36,6 +36,7 @@ const {values,errors,handleBlur,handleChange,handleSubmit}=useFormik({
         })
         navigate('/')
         toast.success('User login success fully')
+        localStorage.setItem("user",response.data.data.user)
     } catch (error) {
         console.log(error);
         toast.error("something went wrong")

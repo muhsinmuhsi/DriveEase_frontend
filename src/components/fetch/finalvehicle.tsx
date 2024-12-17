@@ -1,7 +1,7 @@
 import axios from 'axios'
-import React, { useEffect,useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { vehicleSchema } from '../../redux/vehicleSlice';
+import  { useEffect} from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { addSelectedVehicle} from '../../redux/vehicleSlice';
 import Header from '../header/Header'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setDaysDifference } from '../../redux/DateSlice';
@@ -10,7 +10,7 @@ import { IoIosArrowDroprightCircle } from "react-icons/io";
 
 
 const Finalvehicle = () => {
-    const [vehicle, setvehicle] = useState<vehicleSchema>();
+    const vehicle=useAppSelector((state)=>state.vehicle.selectedVehicle)
     const pickupdate=useAppSelector((state)=>state.dateslice.pickupDate)
     const dropoffdate=useAppSelector((state)=>state.dateslice.dropoffDate)
     const pickupLocation=useAppSelector((state)=>state.dateslice.pickupLocation)
@@ -18,11 +18,12 @@ const Finalvehicle = () => {
     const days=useAppSelector(state=>state.dateslice.daysdifference)
     const dispatch=useAppDispatch()
     const params=useParams()
+    const navigate=useNavigate()
      useEffect(()=>{
         const fetchvehicle=async()=>{
             try {
                 const response=await axios.get(`http://localhost:8080/api/users/vehicle/${params.id}`,{withCredentials:true})
-                setvehicle(response.data.data)
+                dispatch(addSelectedVehicle(response.data.data))
 
             } catch (error) {
                 console.log(error,'error');
@@ -117,7 +118,7 @@ const Finalvehicle = () => {
               </div>
 
               <div className='flex justify-end mt-10 mr-5'>
-                <button className='text-lg font-bold bg-green-500 hover:bg-green-700 rounded-lg p-2 '>Rent now </button>
+                <button className='text-lg font-bold bg-green-500 hover:bg-green-700 rounded-lg p-2 ' onClick={()=>navigate('/document/upload')}>Rent now </button>
               </div>
               
         </div>

@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Googlelogin from "./components/auth/Googlelogin";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Home from "./pages/Home";
@@ -11,6 +10,7 @@ import FetchCategoryFull from "./components/fetch/FetchFullCatogory";
 import Availablevehicles from "./components/fetch/Availablevehicles";
 import Finalvehicle from "./components/fetch/finalvehicle";
 import DocumentCollect from "./pages/DocumentCollect";
+import Payment from "./pages/Payment";
 
 // interface User {
 //     access_token: string;
@@ -38,8 +38,7 @@ const App: React.FC = () => {
             <Route path="/vehicle/isAvailable" element={<Availablevehicles/>}/>
             <Route path="/vehicle/:id" element={<Finalvehicle/>}/>
             <Route path="/document/upload" element={<DocumentCollect/>}/>
-
-             
+            <Route path="/booking/payment" element={<Payment/>}/>
         </Routes>
         </BrowserRouter>
       

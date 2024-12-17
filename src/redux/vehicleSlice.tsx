@@ -30,12 +30,15 @@ export interface vehicleSchema {
 interface vehicleState {
     EconomyCar:vehicleSchema[],
     LuxuryCar:vehicleSchema[],
+    selectedVehicle:vehicleSchema|null
 
 }
 
 const initialState:vehicleState={
     EconomyCar:[],
-    LuxuryCar:[]
+    LuxuryCar:[],
+    selectedVehicle:null
+
 }
 const vehicleSlice=createSlice({
     name:'vehicle',
@@ -46,10 +49,13 @@ const vehicleSlice=createSlice({
         },
         addLuxuryVehicle:(state,action:PayloadAction<vehicleSchema[]>)=>{
             state.LuxuryCar=action.payload
+        },
+        addSelectedVehicle:(state,action:PayloadAction<vehicleSchema>)=>{
+            state.selectedVehicle=action.payload
         }
     }
 
 })
 
-export const {addEconomyvehicle,addLuxuryVehicle}=vehicleSlice.actions;
+export const {addEconomyvehicle,addLuxuryVehicle,addSelectedVehicle}=vehicleSlice.actions;
 export default vehicleSlice.reducer;

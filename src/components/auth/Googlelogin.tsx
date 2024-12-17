@@ -2,7 +2,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 interface User {
@@ -36,6 +36,9 @@ const Googlelogin: React.FC = () => {
         })
         toast.success(`${response.data.message}`||"registered successfully")
         navigate('/')
+        localStorage.setItem('user',response.data.data.user)
+        console.log('this is user from ',response.data.data.user);
+        
       } catch (error) {
         console.log(error,'error');
         toast.error(`something went wrong`) 
@@ -71,6 +74,7 @@ const Googlelogin: React.FC = () => {
     return (
         <div>
             <div>
+                <Toaster/>
                 <h1 className="text-2xl font-bold text-center pb-4">sign up with google </h1>
             </div>
             {profile ? (
