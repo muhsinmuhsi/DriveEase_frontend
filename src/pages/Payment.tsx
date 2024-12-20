@@ -1,13 +1,17 @@
 import React from 'react'
 import { useAppSelector } from '../redux/hooks'
 import axios from 'axios'
-
+import toast, { Toaster } from 'react-hot-toast'
+import Header from '../components/header/Header'
+import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom'
 const Payment = () => {
     const vehicle=useAppSelector((state)=>state.vehicle.selectedVehicle)
     const days=useAppSelector((state)=>state.dateslice.daysdifference)
    const totalAmount=vehicle?.pricePerDay&& days&& vehicle.pricePerDay*days
    const startDate=useAppSelector((state)=>state.dateslice.pickupDate)
    const endDate=useAppSelector((state)=>state.dateslice.dropoffDate)
+   const navigate=useNavigate()
 
    const loadRazorpayScript = () => {
     return new Promise((resolve) => {
@@ -24,7 +28,20 @@ const Payment = () => {
   };
 
   const handlePayment=async()=>{
-    const user:any = localStorage.getItem("user")
+    Swal.fire({
+      title: "Proceed to Payment?",
+      text: "Are you sure you want to proceed with the payment? This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Proceed",
+      cancelButtonText: "No, Cancel",
+    });
+    
+
+    const user = localStorage.getItem("user")
+    const userparse=JSON.parse(user)
+    console.log('thsi is user form localstorage',userparse);
+    
 
     const scriptLoaded = await loadRazorpayScript();
 
@@ -33,7 +50,7 @@ const Payment = () => {
         return;
       }
 
-      const response=await axios.post(`http://localhost:8080/api/users/vehicle/payment/${user._id}`,{
+      const response=await axios.post(`http://localhost:8080/api/users/vehicle/payment/${userparse._id}`,{
        amount:totalAmount,
        vehicleName:vehicle?.name,
        startDate:startDate,
@@ -66,6 +83,9 @@ const Payment = () => {
    
           const verificationResult = await axios.post("http://localhost:8080/api/users/vehicle/verifyPayment", paymentData,{
            withCredentials:true,
+           headers:{
+            "Content-Type":"application/json",
+           }
           });
    
      
@@ -85,7 +105,11 @@ const Payment = () => {
         },
       };
 
+      
+
       const rzp1 = new window.Razorpay(options);
+      toast.success('payment completed success fully')
+      navigate('/')
 
       rzp1.on("payment.failed", function (response) {
         alert(response.error.code);
@@ -103,8 +127,12 @@ const Payment = () => {
 
 
   return (
-    <div className=' flex flex-col  items-center justify-center'>
+  <>
+  <Header/>
+    <div className=' flex flex-col  items-center justify-center pt-20'>
+      
         <div className='border border-black rounded-xl w-1/2 flex flex-col items-center '>
+        <Toaster/>
         <div>
             <img src={vehicle?.image} alt="" className='w-72 h-48 object-contain'/>
         </div>
@@ -113,12 +141,11 @@ const Payment = () => {
             <br />
             <p className='text-xl font-bold'>payableAmount: ₹{totalAmount}</p>
         </div>
-        
-
         </div>
 
         <button className='bg-green-500 hover:bg-green-800 shadow-md rounded-xl p-2 mt-5 text-xl font-bold text-white' onClick={()=>handlePayment()}>Pay Now </button>
     </div>
+    </>
   )
 }
 

@@ -35,8 +35,10 @@ const {errors,handleBlur,handleChange,handleSubmit}=useFormik({
             }
         })
         navigate('/')
+        console.log('this is login page user',response.data.data.user);
+        
         toast.success('User login success fully')
-        localStorage.setItem("user",response.data.data.user)
+        localStorage.setItem("user",JSON.stringify(response.data.data.user))
     } catch (error) {
         console.log(error);
         toast.error("something went wrong")
@@ -58,7 +60,7 @@ const {errors,handleBlur,handleChange,handleSubmit}=useFormik({
 <label className="block text-black-700 text-sm font-bold mb-2" >
   email
 </label>
-<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+<input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:ring-blue-500" 
 id="email"
  type="email" 
  name='email'
@@ -93,7 +95,7 @@ id="email"
 </button>
 <p className='text-xs'>Already haven't an account?<a className="inline-block align-baseline font-bold text-xs text-blue-500 hover:text-blue-800" href="#">sign up </a></p> 
 </div>
-<button className='pt-10'><RiAdminFill /></button>
+<button className='pt-10' onClick={()=>navigate('/adminLogin')}><RiAdminFill /></button>
 </form>
 
 </div>

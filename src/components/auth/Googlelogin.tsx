@@ -27,16 +27,19 @@ const Googlelogin: React.FC = () => {
 
     const hundleloginsuccess= async(credentialresponse:any)=>{
       const {credential}=credentialresponse
-      console.log(credential,'iam')
+    
       try {
         const response=await axios.post('http://localhost:8080/api/users/googleauth',{idtoken:credential},{
             headers:{
                 "Content-Type": "application/json", 
             }
         })
-        toast.success(`${response.data.message}`||"registered successfully")
+        
         navigate('/')
-        localStorage.setItem('user',response.data.data.user)
+        
+        toast.success(`${response.data.message}`||"registered successfully")
+        localStorage.setItem('user',JSON.stringify(response.data.data.user))
+
         console.log('this is user from ',response.data.data.user);
         
       } catch (error) {

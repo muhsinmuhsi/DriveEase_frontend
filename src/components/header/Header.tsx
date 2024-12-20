@@ -1,11 +1,46 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../../assets/logo-transparent-png.png'
 import { IoMenu } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const ResponsiveNavbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [loggin,setloggin]=useState(false)
   const navigate = useNavigate()
+
+  useEffect(()=>{
+    const user=localStorage.getItem('user')
+    if(user){
+      setloggin(true)
+    }else{
+      setloggin(false)
+    }
+  })
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You won\'t be able to revert this!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Logout!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Logouted!',
+          text: 'Your file has been Logouted.',
+          icon: 'success'
+        });
+        localStorage.clear();
+        setloggin(false);
+        setIsNavOpen(false);
+      }
+    });
+  };
+  
 
   return (
     <div className="fixed bg-white w-full h-20 z-50 ">
@@ -37,12 +72,18 @@ const ResponsiveNavbar = () => {
             >
               ✕
             </button>
-            <ul className="flex flex-col gap-4 text-lg font-semibold text-gray-900">
+            {
+              loggin ? <ul className="flex flex-col gap-4 text-lg font-semibold text-gray-900">
+              <li className="hover:text-green-600 cursor-pointer" onClick={()=>handleLogout()}>Logout</li>
+              <li className="hover:text-green-600 cursor-pointer" onClick={()=>navigate('/mybookings')}>MyBookings</li>
+            </ul>:<ul className="flex flex-col gap-4 text-lg font-semibold text-gray-900">
               <li className="hover:text-green-600 cursor-pointer focus:text-green-600" onClick={()=>navigate('/register')}>Sign Up </li>
               <li className="hover:text-green-600 cursor-pointer focus:bg-green-400" onClick={()=>navigate('/Login')}>Sign In</li>
-              <li className="hover:text-green-600 cursor-pointer">Services</li>
-              <li className="hover:text-green-600 cursor-pointer">Contact</li>
+              <li className="hover:text-green-600 cursor-pointer" onClick={()=>navigate('/mybookings')}>MyBookings</li>
             </ul>
+
+            }
+            
           </div>
         </div>
       )}
