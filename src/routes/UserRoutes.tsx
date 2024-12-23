@@ -13,6 +13,7 @@ import DocumentCollect from "../pages/DocumentCollect";
 import Payment from "../pages/Payment";
 import Mybookings from "../pages/Mybookings";
 import AdminLogin from "../pages/adminpages/AdminLogin";
+import PaginationExample from "../pages/dummy";
 
 const UserRoutes: React.FC = () => {
   return (
@@ -31,6 +32,7 @@ const UserRoutes: React.FC = () => {
       <Route path="/booking/payment" element={<Payment />} />
       <Route path="/mybookings" element={<Mybookings />} />
       <Route path="/adminLogin" element={<AdminLogin/>} />
+      <Route path="/dummy" element={<PaginationExample/>} />
     </Routes>
   );
 };

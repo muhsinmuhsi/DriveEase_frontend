@@ -1,8 +1,54 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 
 const ManageBookings = () => {
+  const [bookings,setbookings]=useState([])
+  useEffect(()=>{
+    const fetchbookings=async()=>{
+      try {
+        const response=await axios.get('http://localhost:8080/api/admin/bookings',{withCredentials:true})
+        setbookings(response.data.data)
+      } catch (error) {
+        console.log(error,'error to fetch bookings');
+        
+      }
+    }
+    fetchbookings()
+  },[])
   return (
-    <div>ManageBookings</div>
+    <div>
+      <h2 className='text-2xl font-bold '>All Bookings</h2>
+      <table>
+      <thead>
+                <tr className="bg-gray-200">
+                  <th className="border border-gray-300 px-4 py-2 text-left">NO</th>
+                  <th className="border border-gray-300 px-4 py-2 text-left">User Name</th>
+                  <th className="border border-gray-300 px-4 py-2 text-left">Vehicle Name</th>
+                  <th className="border border-gray-300 px-4 py-2 text-left">Start_Date</th>
+                  <th className="border border-gray-300 px-4 py-2 text-left">End_Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  bookings?.map((data,index)=>{
+                    const StartDate=new Date(data.startDate).toLocaleDateString()
+                    const EndDate=new Date(data.endDate).toLocaleDateString()
+                    return(
+                      <tr key={data._id} className="hover:bg-gray-100" >
+                      <td className="border border-gray-300 px-4 py-2">{index+1}</td>
+                      <td className="border border-gray-300 px-4 py-2">
+                        {data.userId.username}
+                      </td>
+                      <td className="border border-gray-300 px-4 py-2">{data.vehicleName}</td>
+                      <td className="border border-gray-300 px-4 py-2">{StartDate}</td>
+                      <td className="border border-gray-300 px-4 py-2">{EndDate}</td>
+                    </tr>
+                    )
+                  })
+                }
+              </tbody>
+      </table>
+    </div>
   )
 }
 

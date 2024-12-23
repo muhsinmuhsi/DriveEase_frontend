@@ -81,7 +81,7 @@ const Datepickerdiv = () => {
   return (
     <div className="bg-green-50 m-14 flex flex-col p-8">
       {/* Vehicle Type Selection */}
-      <div>
+      {/* <div>
         <p className="font-semibold">Which Type Of Vehicle?</p>
         <button className="bg-green-400 rounded p-2 font-semibold m-3 focus:bg-green-600">
           <IoCarSport className="inline" /> Car
@@ -89,7 +89,7 @@ const Datepickerdiv = () => {
         <button className="bg-green-400 rounded p-2 font-semibold focus:bg-green-600">
           <RiEBikeFill className="inline" /> Bike
         </button>
-      </div>
+      </div> */}
 
       {/* Form */}
       <form onSubmit={handleSubmit}>

@@ -79,7 +79,6 @@ const ResponsiveNavbar = () => {
             </ul>:<ul className="flex flex-col gap-4 text-lg font-semibold text-gray-900">
               <li className="hover:text-green-600 cursor-pointer focus:text-green-600" onClick={()=>navigate('/register')}>Sign Up </li>
               <li className="hover:text-green-600 cursor-pointer focus:bg-green-400" onClick={()=>navigate('/Login')}>Sign In</li>
-              <li className="hover:text-green-600 cursor-pointer" onClick={()=>navigate('/mybookings')}>MyBookings</li>
             </ul>
 
             }

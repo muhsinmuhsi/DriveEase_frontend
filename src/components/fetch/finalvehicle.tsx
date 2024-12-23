@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setDaysDifference } from '../../redux/DateSlice';
 import toast, { Toaster } from 'react-hot-toast';
 import { IoIosArrowDroprightCircle } from "react-icons/io";
+import Footer from '../features/Footer';
 
 
 const Finalvehicle = () => {
@@ -63,11 +64,65 @@ const Finalvehicle = () => {
     <div>
         <Header/>
         <Toaster position="bottom-right"/>
-        <div className='flex flex-col md:flex-row justify-between pt-20'>
-        <div className='w-1/2 '>
-            <img src={vehicle?.image} alt="" />
-            <p className='font-bold'>Brand:{vehicle?.brand}</p>
-            <div className='bg-gray-200 w-full h-56 overflow-auto border border-black'>
+
+        <div className='border border-b-black pb-32'>
+
+        <div className='flex flex-col md:flex-row justify-around pt-20 mx-16'>
+        <div className=' '>
+            <img src={vehicle?.image} alt="" className='w-72 h-44 object-contain ' />
+            
+        </div>
+
+                <div className='flex flex-col bg-gray-100 shadow-md rounded p-4 m-3  justify-around  w-5/12'>
+                <div className='flex justify-between mb-8'>
+                    <div>
+                        <p className=' text-xl font-bold'>{vehicle?.name}</p>
+                        <p className='inline pr-4'>{vehicle?.fuelType}</p>
+                        <p className='inline'>{vehicle?.type}</p>
+                        
+                    </div>
+                    <div className='text-lg '>
+                     <p><b>Duration : </b>{days} Day</p>   
+                    <p>₹{vehicle?.pricePerDay&& vehicle.pricePerDay}/day</p>
+                    </div>
+            
+                </div>    
+                <div className='flex justify-around'>
+                    <div>
+                        <p className='font-bold'>{pickupLocation}</p>
+                        <p>{pickupdate ? new Date(pickupdate).toLocaleDateString() : 'No date selected'}</p>
+
+                    </div>
+                    <div className='flex items-center p-2'>
+                        <p><IoIosArrowDroprightCircle className='text-xl'/></p>
+                    </div>
+                    <div >
+                        <p className='font-bold'>{dropoffLocation}</p>
+                        <p>{dropoffdate ? new Date(dropoffdate).toLocaleDateString() : 'No date selected'}</p>
+                    </div>
+                </div>
+
+                </div>
+                <div className='p-3 flex w-40 h-36   justify-center items-center'>
+                    <p className='text-xl font-bold'>Total :₹{vehicle?.pricePerDay && days && vehicle.pricePerDay * days}</p>
+                </div>
+
+        </div>
+        <div className='flex justify-end mt-10 m-11'>
+                <button className='text-lg font-bold bg-green-500 hover:bg-green-700 rounded-lg p-2 ' onClick={()=>navigate('/document/upload')}>Rent now </button>
+       </div>
+
+    </div>
+
+    <Footer/>
+    </div>
+    
+  )
+}
+
+export default Finalvehicle
+
+{/* <div className='bg-gray-200 w-full h-56 overflow-auto border border-black'>
                 <p className='text-xl font-semibold text-center'> read reviews hear </p>
                 {
                     vehicle?.Reviews?.length===0?<p className='text-lg font-bold text-center'>no reviews yet </p>:(
@@ -79,53 +134,4 @@ const Finalvehicle = () => {
                     ))
                     )
                 }
-            </div>
-        </div>
-        <div className='w-1/2 flex flex-col '>
-            <p className='text-center text-3xl font-bold'>{vehicle?.name}</p>
-            <p className='font-semibold'>{vehicle?.type}</p>
-            <div  className='flex text-sm font-semibold pt-2'>
-                <p className='pr-3'>{vehicle?.transmission}</p>
-                <p className='pr-3'>{vehicle?.fuelType}</p>
-                <p className='pr-3'>{vehicle?.seatingCapacity}Seat</p>
-              </div>
-              <div className='flex flex-col p-2 border rounded-xl shadow-inner  mt-6 '>
-                <div className='flex bg-green-50 rounded p-2 shadow-sm justify-around text-xl font-semibold'>
-                    <div>
-                        <p>{pickupLocation}</p>
-                        <p>{pickupdate ? new Date(pickupdate).toLocaleDateString() : 'No date selected'}</p>
-
-                    </div>
-                    <div className='flex items-center p-2'>
-                        <p><IoIosArrowDroprightCircle className='text-xl'/></p>
-                    </div>
-                    <div >
-                        <p>{dropoffLocation}</p>
-                        <p>{dropoffdate ? new Date(dropoffdate).toLocaleDateString() : 'No date selected'}</p>
-                    </div>
-                </div>
-                <div className='flex justify-between p-3 font-bold'>
-                    <div>
-                      <p>Total ₹{vehicle?.pricePerDay && days && vehicle.pricePerDay * days} </p>
-                      <p>Days: {days}</p>
-                    </div>
-                    <div>
-                        <p>₹{vehicle?.pricePerDay && (vehicle.pricePerDay / 24).toFixed(2)}/hour</p>
-                        <p>₹{vehicle?.pricePerDay&& vehicle.pricePerDay}/day</p>
-                    </div>
-                </div>
-              
-              </div>
-
-              <div className='flex justify-end mt-10 mr-5'>
-                <button className='text-lg font-bold bg-green-500 hover:bg-green-700 rounded-lg p-2 ' onClick={()=>navigate('/document/upload')}>Rent now </button>
-              </div>
-              
-        </div>
-    </div>
-    </div>
-    
-  )
-}
-
-export default Finalvehicle
+            </div> */}

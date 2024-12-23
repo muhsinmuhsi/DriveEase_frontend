@@ -38,8 +38,7 @@ const Collections = () => {
 
   const vehicleByCategory = async (category: string): Promise<vehicleSchema[] | undefined> => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/users/vehicles/category/${category}`);
-      console.log(response.data.data, "this from collection");
+      const response = await axios.get(`http://localhost:8080/api/users/vehicles/category/${category}`,{withCredentials:true});
       return response.data.data;
     } catch (error) {
       console.error("Error fetching vehicles:", error);

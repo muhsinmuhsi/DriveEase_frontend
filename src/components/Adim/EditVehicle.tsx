@@ -49,6 +49,7 @@ const EditVehicle = ({isOpen,onclose,vehicleId}) => {
               });
               console.log("Product updated successfully");
               toast.success('product updated successfully')
+              onclose()
           } catch (err) {
               console.log(err, "error to update product");
           }
@@ -65,7 +66,6 @@ const EditVehicle = ({isOpen,onclose,vehicleId}) => {
           try {
             const res = await axios.get(`http://localhost:8080/api/admin/vehiclebyId/${vehicleId}`,{withCredentials:true});
             setValues(res.data.data);
-            console.log(res.data.data,'jjjjj');
             
           } catch (err) {
             console.log(err);

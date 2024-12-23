@@ -1,73 +1,70 @@
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { parse, isValid } from 'date-fns';
+import React, { useState } from "react";
 
-// Function to parse and validate the date format
-const validateDateTime = (value) => {
-  const parsedDate = parse(value, "EEE MMM dd yyyy HH:mm:ss 'GMT'xxx", new Date());
-  return isValid(parsedDate);
-};
+const PaginationExample = () => {
+  // Sample data
+  const data = Array.from({ length: 50 }, (_, index) => `Item ${index + 1}`);
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
-const validationSchema = Yup.object().shape({
-  pickupLocation: Yup.string().required('Pickup location is required'),
-  pickupDate: Yup.string()
-    .required('Pickup date is required')
-    .test('is-valid-date', 'Invalid date format', validateDateTime),
-  droffLocation: Yup.string().required('Dropoff location is required'),
-  dropoffDate: Yup.string()
-    .required('Dropoff date is required')
-    .test('is-valid-date', 'Invalid date format', validateDateTime),
-});
+  // Calculate total pages
+  const totalPages = Math.ceil(data.length / itemsPerPage);
 
+  // Get current items
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentItems = data.slice(startIndex, startIndex + itemsPerPage);
 
-const initialValues = {
-  pickupLocation: '',
-  pickupDate: '',
-  droffLocation: '',
-  dropoffDate: '',
-};
+  // Handle page change
+  const goToPage = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
-const CarRentalForm = () => {
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={(values) => {
-        console.log('Form submitted:', values);
-      }}
-    >
-      {() => (
-        <Form>
-          <div>
-            <label>Pickup Location</label>
-            <Field name="pickupLocation" />
-            <ErrorMessage name="pickupLocation" />
-          </div>
+    <div className="p-4">
+      <h1 className="text-xl font-bold">React Pagination</h1>
 
-          <div>
-            <label>Pickup Date</label>
-            <Field name="pickupDate" />
-            <ErrorMessage name="pickupDate" />
-          </div>
+      {/* Render items */}
+      <ul className="my-4">
+        {currentItems.map((item, index) => (
+          <li key={index} className="p-2 border-b">{item}</li>
+        ))}
+      </ul>
 
-          <div>
-            <label>Dropoff Location</label>
-            <Field name="droffLocation" />
-            <ErrorMessage name="droffLocation" />
-          </div>
+      {/* Pagination controls */}
+      <div className="flex items-center space-x-2">
+        <button
+          onClick={() => goToPage(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+        >
+          Previous
+        </button>
 
-          <div>
-            <label>Dropoff Date</label>
-            <Field name="dropoffDate" />
-            <ErrorMessage name="dropoffDate" />
-          </div>
+        {Array.from({ length: totalPages }).map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToPage(index + 1)}
+            className={`px-3 py-1 rounded ${
+              currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-gray-200 hover:bg-gray-300"
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
 
-          <button type="submit">Submit</button>
-        </Form>
-      )}
-    </Formik>
+        <button
+          onClick={() => goToPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+        >
+          Next
+        </button>
+      </div>
+    </div>
   );
 };
 
-export default CarRentalForm;
+export default PaginationExample;

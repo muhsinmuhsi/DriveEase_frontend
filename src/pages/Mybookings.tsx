@@ -46,7 +46,7 @@ const Mybookings = () => {
                     <tr key={data._id} className="hover:bg-gray-100">
                       <td className="border border-gray-300 px-4 py-2">{index+1}</td>
                       <td className="border border-gray-300 px-4 py-2">
-                        {data.vehiclename || "Innova"}
+                        {data.vehicleName || "NA"}
                       </td>
                       <td className="border border-gray-300 px-4 py-2">{pickupDate}</td>
                       <td className="border border-gray-300 px-4 py-2">{dropoffDate}</td>

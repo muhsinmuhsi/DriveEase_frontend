@@ -26,8 +26,14 @@ const ManageVehicles = () => {
 
     useEffect(()=>{
         const fetchcollectoions=async()=>{
+          const token=localStorage.getItem('admin_token')
             try {
-                const response=await axios.get('http://localhost:8080/api/admin/allVehicles',{withCredentials:true})
+                const response=await axios.get('http://localhost:8080/api/admin/allVehicles',{
+                 withCredentials:true,
+                headers:{
+                  Authorization:`${token}`
+                }
+                })
                 dipacth(addEconomyvehicle(response.data.data))
 
             } catch (error) {

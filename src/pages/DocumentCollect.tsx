@@ -11,11 +11,17 @@ const DocumentCollect = () => {
 
   // Optional: Show selected file name
   const handleSubmit = () => {
-    if (license) {
+    const user=localStorage.getItem('user')
+    if (license&&user) {
       toast.success(`File uploaded: ${license.name}`);
       navigate('/booking/payment')
     } else {
-      toast.error("Please upload a file first.");
+      if(!user){
+        toast.error('please login ')
+      }
+      if(!license){
+         toast.error("Please upload a file first.");
+      }
     }
   };
 

@@ -17,42 +17,56 @@ const Availablevehicles = () => {
   const dropoffdate=useAppSelector(state=>state.dateslice.dropoffDate)
 
   const [availablevehicles, setavailablevehicles] = useState<vehicleSchema[]>([]);
+  const [filterdAvailableVehicles, setfilterdAvailableVehicles] = useState<vehicleSchema[]>(availablevehicles);
   
-useEffect(()=>{
-  const fetchavailblevehicles=async()=> {
-    console.log('this i s async function from availablevehicles');
-    
-    try {
-      const response=await axios.post('http://localhost:8080/api/users/availablevehicles',
-        {pickupDate:pickupdate,dropofDate:dropoffdate},
-        {
-          headers:{
-            "Content-Type":"application/json",
-          },
-          withCredentials:true
-        }
-      )
-      setavailablevehicles(response.data.checkAvaillity|| [])
-      
-      
-    } catch (error) {
-      console.log(error)
+  useEffect(() => {
+    const fetchAvailableVehicles = async () => {
+      try {
+        const response = await axios.post(
+          'http://localhost:8080/api/users/availablevehicles',
+          { pickupDate: pickupdate, dropofDate: dropoffdate },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true
+          }
+        );
+        const vehicles = response.data.checkAvaillity || [];
+        setavailablevehicles(vehicles);
+        setfilterdAvailableVehicles(vehicles); // Set filtered vehicles to all fetched vehicles
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    if (pickupdate && dropoffdate) {
+      fetchAvailableVehicles();
     }
-
-   }
-   if (pickupdate && dropoffdate) {
-    fetchavailblevehicles();
-  }
-},[])
+  }, [pickupdate, dropoffdate]); // Include dependencies to re-run on date changes
+  
    
+
+const filterVehicles=(filter:string)=>{
+  const FilterdVehicle=availablevehicles.filter(vehicle=>vehicle.type===filter)
+  setfilterdAvailableVehicles(FilterdVehicle)
+}
 
   return (
     <div className=''>
      <Header/>
-     <div className='pt-20 flex '>
-      <div className='w-1/2 h-screen overflow-y-scroll'>
+     <div className='pt-20 flex flex-col items-center '>
+      <div className=''>
+
+        <button onClick={()=>setfilterdAvailableVehicles(availablevehicles)} className='px-2 py-1 hover:bg-green-300 m-2 rounded-xl border border-green-300'>All</button>
+        <button onClick={()=>filterVehicles('sedan')} className='px-2 py-1 hover:bg-green-300 m-2 rounded-xl border border-green-300'>sedan</button>
+        <button onClick={()=>filterVehicles('Hatchback')} className='px-2 py-1 hover:bg-green-300 m-2 rounded-xl border border-green-300'>Hatchback</button>
+        <button onClick={()=>filterVehicles('SUV')} className='px-2 py-1 hover:bg-green-300 m-2 rounded-xl border border-green-300'>SUV</button>
+        <button onClick={()=>filterVehicles('Sports Car')} className='px-2 py-1 hover:bg-green-300 m-2 rounded-xl border border-green-300' >Sports Car</button>
+      </div>
+      <div className='w-8/12 '>
         {
-        availablevehicles?.map((data: vehicleSchema, index: number)=>(
+        filterdAvailableVehicles?.map((data: vehicleSchema)=>(
           <div className='bg-white rounded-lg  flex  m-2  justify-around shadow-lg '>
             <div className='flex flex-col justify-around p-5'>
               <h1 className='text-xl font-semibold '>{data.name}</h1>
@@ -73,17 +87,13 @@ useEffect(()=>{
               <div>
 
               </div>
-              
-
+      
             </div>
             
           </div>
         ))
 
       }
-      </div>
-      <div>
-        <p>this is for filtering option </p>
       </div>
      </div>
     </div>
