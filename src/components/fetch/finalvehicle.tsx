@@ -8,6 +8,8 @@ import { setDaysDifference } from '../../redux/DateSlice';
 import toast, { Toaster } from 'react-hot-toast';
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import Footer from '../features/Footer';
+import { HiPencilSquare } from "react-icons/hi2";
+
 
 
 const Finalvehicle = () => {
@@ -29,7 +31,6 @@ const Finalvehicle = () => {
             } catch (error) {
                 console.log(error,'error');
             }
-
         }
         if(params){
             fetchvehicle()
@@ -65,7 +66,7 @@ const Finalvehicle = () => {
         <Header/>
         <Toaster position="bottom-right"/>
 
-        <div className='border border-b-black pb-32'>
+        <div className=' pb-20 border '>
 
         <div className='flex flex-col md:flex-row justify-around pt-20 mx-16'>
         <div className=' '>
@@ -112,7 +113,29 @@ const Finalvehicle = () => {
                 <button className='text-lg font-bold bg-green-500 hover:bg-green-700 rounded-lg p-2 ' onClick={()=>navigate('/document/upload')}>Rent now </button>
        </div>
 
+
+
     </div>
+<p className='text-2xl font-bold text-center pt-6'> Read Reviews Hear </p>
+   <div className='flex justify-center'>
+         <div className='w-7/12 h-56 overflow-auto scrollbar-none   border border-black rounded-lg  m-6'>
+                
+                {
+                    vehicle?.Reviews?.length===0?<p className='text-lg font-bold text-center'>no reviews yet </p>:(
+                         vehicle?.Reviews?.map((reviews)=>(
+                        <div className='bg-white border   h-auto px-6 '>
+                            <p className='text-lg font-normal p-5 text-wrap'>{reviews.content}</p>
+                            <div className='flex justify-end'>
+                                <p><HiPencilSquare className='inline'/>{reviews.userId?.username}</p>
+                            </div>
+                        </div>
+                        
+                    ))
+                    )
+                }
+            </div> 
+  </div>
+
 
     <Footer/>
     </div>
@@ -122,16 +145,3 @@ const Finalvehicle = () => {
 
 export default Finalvehicle
 
-{/* <div className='bg-gray-200 w-full h-56 overflow-auto border border-black'>
-                <p className='text-xl font-semibold text-center'> read reviews hear </p>
-                {
-                    vehicle?.Reviews?.length===0?<p className='text-lg font-bold text-center'>no reviews yet </p>:(
-                         vehicle?.Reviews?.map((reviews)=>(
-                        <div className='bg-white border border-black w-full h-auto '>
-                            <p className='text-lg font-normal p-5 '>{reviews.review}</p>
-                        </div>
-                        
-                    ))
-                    )
-                }
-            </div> */}

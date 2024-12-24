@@ -32,7 +32,7 @@ const BookingChart = () => {
 
         const labels = data.map((item) => item.month);
         const bookingsData = data.map((item) => item.totalBookings);
-        // const amountData = data.map((item) => item.totalAmount);
+        const amountData = data.map((item) => item.totalAmount);
 
         setChartData({
           labels,
@@ -43,14 +43,16 @@ const BookingChart = () => {
               backgroundColor: "rgba(75, 192, 192, 0.2)",
               borderColor: "rgba(75, 192, 192, 1)",
               borderWidth: 1,
+              yAxisID: "yBookings", // Bind this dataset to the first y-axis
             },
-            // {
-            //   label: "Total Amount",
-            //   data: amountData,
-            //   backgroundColor: "rgba(153, 102, 255, 0.2)",
-            //   borderColor: "rgba(153, 102, 255, 1)",
-            //   borderWidth: 1,
-            // },
+            {
+              label: "Total Amount",
+              data: amountData,
+              backgroundColor: "rgba(153, 102, 255, 0.2)",
+              borderColor: "rgba(153, 102, 255, 1)",
+              borderWidth: 1,
+              yAxisID: "yAmount", // Bind this dataset to the second y-axis
+            },
           ],
         });
       } catch (error) {
@@ -68,6 +70,44 @@ const BookingChart = () => {
         options={{
           responsive: true,
           maintainAspectRatio: false,
+          scales: {
+            yBookings: {
+              type: "linear",
+              position: "left",
+              title: {
+                display: true,
+                text: "Total Bookings",
+              },
+              ticks: {
+                beginAtZero: true,
+              },
+            },
+            yAmount: {
+              type: "linear",
+              position: "right",
+              title: {
+                display: true,
+                text: "Total Amount",
+              },
+              ticks: {
+                beginAtZero: true,
+              },
+              grid: {
+                drawOnChartArea: false, // Prevent grid lines from overlapping
+              },
+            },
+            x: {
+              title: {
+                display: true,
+                text: "Months",
+              },
+            },
+          },
+          plugins: {
+            legend: {
+              position: "top",
+            },
+          },
         }}
       />
     </div>

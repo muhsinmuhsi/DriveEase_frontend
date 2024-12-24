@@ -7,8 +7,7 @@ interface Booking {
 
   interface Reviews {
     userId:string,
-    review:string,
-    rating:number
+    content:string,
   }
 
 export interface vehicleSchema {

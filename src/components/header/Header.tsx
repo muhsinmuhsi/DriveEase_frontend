@@ -43,12 +43,12 @@ const ResponsiveNavbar = () => {
   
 
   return (
-    <div className="fixed bg-white w-full h-20 z-50 ">
+    <div className="fixed bg-white w-full md:h-20 z-50 ">
       {/* Navbar */}
       <nav className="w-full   justify-between items-center flex flex-col md:flex-row">
         <div className="text-2xl font-bold"><img src={logo} alt=""className='w-40 h-10 m-4 ' /></div>
       
-        <ul className="hidden md:flex gap-6">
+        <ul className=" flex-wrap md:flex gap-6">
           <li className="hover:text-green-400 cursor-pointer focus:bg-green-400 font-semibold" onClick={()=>navigate('/')}>Home</li>
           <li className="hover:text-green-400 cursor-pointer font-semibold" onClick={()=>navigate('/collections')}>Collections</li>
           <li className="hover:text-green-400 cursor-pointer font-semibold" onClick={()=>navigate('/Pricing')}>Pricing</li>

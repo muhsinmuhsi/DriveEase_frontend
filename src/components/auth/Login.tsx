@@ -35,10 +35,8 @@ const {errors,handleBlur,handleChange,handleSubmit}=useFormik({
               "Content-Type":"application/json",
             }
         })
-        navigate('/')
-        console.log('this is login page user',response.data.data.user);
-        
         toast.success('User login success fully')
+        navigate('/')        
         localStorage.setItem("user",JSON.stringify(response.data.data.user))
     } catch (error) {
         console.log(error);

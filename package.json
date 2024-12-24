@@ -27,6 +27,7 @@
     "react-time-picker": "^7.0.0",
     "redux": "^5.0.1",
     "sweetalert2": "^11.15.2",
+    "tailwind-scrollbar": "^3.1.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {

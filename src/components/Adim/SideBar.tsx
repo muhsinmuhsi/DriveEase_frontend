@@ -2,15 +2,34 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from '../../assets/logo-transparent-png.png'
 import { IoLogOut } from "react-icons/io5";
 import toast, { Toaster } from "react-hot-toast";
+import Swal from "sweetalert2";
 
 
 const Sidebar: React.FC = () => {
   const navigate=useNavigate()
 
   const Logouthandle=()=>{
-    localStorage.removeItem('admin_token')
-    toast.success('admin logout success fully')
-    navigate('/')
+       Swal.fire({
+          title: 'Are you sure?',
+          text: 'You won\'t be able to revert this!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, Logout!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: 'Logouted!',
+              text: 'Your file has been Logouted.',
+              icon: 'success'
+            });
+            localStorage.removeItem('admin_token')
+            toast.success('admin logout success fully')
+            navigate('/')
+          }
+        });
+    
   }
   return (
     <div className="h-screen bg-green-600 text-white w-64 p-4 fixed">

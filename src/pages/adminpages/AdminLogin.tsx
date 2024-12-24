@@ -13,8 +13,8 @@ const AdminLogin = () => {
     try{
       const response= await axios.post('http://localhost:8080/api/admin/Login',{
     email:email,
-    password:password
-   })
+    password:password,
+   },{withCredentials:true})
 
    if(response.status===200){
     const {token}=response.data
