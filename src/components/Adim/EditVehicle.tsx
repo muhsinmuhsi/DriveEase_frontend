@@ -1,12 +1,11 @@
-import axios from 'axios';
-import { useFormik, Form } from 'formik';
-import React, { useEffect, useState } from 'react'
+import { useFormik } from 'formik';
+import  { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 import { number } from 'yup';
 import { useAppDispatch } from '../../redux/hooks';
+import adminApi from '../../adminApi';
 
 const EditVehicle = ({isOpen,onclose,vehicleId}) => {
-    const [vehicle,setvehicle]=useState()
     const [image,setimage]=useState(null)
     const dispatch=useAppDispatch()
 
@@ -40,12 +39,11 @@ const EditVehicle = ({isOpen,onclose,vehicleId}) => {
     
           console.log("Submitting values:", values);
           try {
-              await axios.put(`http://localhost:8080/api/admin/vehicle/update/${vehicleId}`,formData,{
+              await adminApi.put(`/vehicle/update/${vehicleId}`,formData,{
                 withCredentials:true,
                 headers:{
                   "Content-Type": "multipart/form-data",
-                },
-                
+                },              
               });
               console.log("Product updated successfully");
               toast.success('product updated successfully')
@@ -64,9 +62,8 @@ const EditVehicle = ({isOpen,onclose,vehicleId}) => {
         const getvehicle = async () => {
           
           try {
-            const res = await axios.get(`http://localhost:8080/api/admin/vehiclebyId/${vehicleId}`,{withCredentials:true});
-            setValues(res.data.data);
-            
+            const res = await adminApi.get(`/vehiclebyId/${vehicleId}`);
+            setValues(res.data.data);         
           } catch (err) {
             console.log(err);
           }
@@ -183,7 +180,7 @@ const EditVehicle = ({isOpen,onclose,vehicleId}) => {
 </div>
 <div className='flex justify-between p-4'>
   <button type='submit' className='p-3 bg-green-600 hover:bg-green-800 rounded-lg shadow-md px-3'>submit</button>
-  <button className='bg-green-600 rounded-lg shadow-md px-3 py-2 hover:bg-green-800  ' onClick={onclose}>close</button>
+    <button className='bg-green-600 rounded-lg shadow-md px-3 py-2 hover:bg-green-800  ' onClick={onclose}>close</button>
 </div>
 </form>
     </div>

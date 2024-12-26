@@ -1,6 +1,6 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import UserModal from '../../components/Adim/usermodal'
+import adminApi from '../../adminApi';
 
 const ManageUsers = () => {
     const [users,setusers]=useState([])
@@ -19,7 +19,7 @@ const ManageUsers = () => {
     useEffect(()=>{ 
         const fetchusers=async()=>{
             try {
-                const response=await axios.get('http://localhost:8080/api/admin/users',{withCredentials:true})
+                const response=await adminApi.get('/users')
                 setusers(response.data.data)
             } catch (error) {
                 console.log(error,'error to fetch users');
@@ -29,7 +29,7 @@ const ManageUsers = () => {
     },[])
   return (
     <div>
-        <table className="table-auto border-collapse border border-gray-300 w-3/4 shadow-md">
+        <table className="table-auto border-collapse border border-gray-300 w-3/4 shadow-md m-5">
         <thead>
                 <tr className="bg-gray-200">
                   <th className="border border-gray-300 px-4 py-2 text-left">NO</th>
@@ -37,7 +37,7 @@ const ManageUsers = () => {
                   <th className="border border-gray-300 px-4 py-2 text-left">email</th>
                   <th className="border border-gray-300 px-4 py-2 text-left">created_Date</th>
                 </tr>
-              </thead>
+              </thead>  
               <tbody >
                 {
                     users.map((data:any,index)=>{

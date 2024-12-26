@@ -4,6 +4,7 @@ import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import api from "../../api";
 
 interface User {
     access_token: string;
@@ -29,7 +30,7 @@ const Googlelogin: React.FC = () => {
       const {credential}=credentialresponse
     
       try {
-        const response=await axios.post('http://localhost:8080/api/users/googleauth',{idtoken:credential},{
+        const response=await api.post('/googleauth',{idtoken:credential},{
             headers:{
                 "Content-Type": "application/json", 
             }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import logo from '../../assets/logo-transparent-png.png'
 import { IoMenu } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';

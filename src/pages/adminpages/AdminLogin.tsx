@@ -1,7 +1,7 @@
-import axios from 'axios';
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import adminApi from '../../adminApi';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
@@ -11,10 +11,10 @@ const AdminLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      const response= await axios.post('http://localhost:8080/api/admin/Login',{
+      const response= await adminApi.post('/Login',{
     email:email,
     password:password,
-   },{withCredentials:true})
+   })
 
    if(response.status===200){
     const {token}=response.data

@@ -4,9 +4,9 @@ import Googlelogin from './Googlelogin'
 import logo from '../../assets/logo-transparent-png.png'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
-import axios from 'axios'
 import toast,{Toaster} from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
+import api from '../../api'
 
 const signupvalidation=yup.object({
     username: yup.string().min(3).required("Please enter name"),
@@ -40,11 +40,10 @@ const Register:React.FC = () => {
         //   };
 
         try {
-          const response = await axios.post(
-            'http://localhost:8080/api/users/register',
+          const response = await api.post(
+            '/register',
             values,
-            {
-              withCredentials: true, // Include this in the config object
+            { // Include this in the config object
               headers: {
                 "Content-Type": "application/json",
               },

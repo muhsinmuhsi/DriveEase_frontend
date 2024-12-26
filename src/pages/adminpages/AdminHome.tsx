@@ -1,5 +1,5 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
+import adminApi from '../../adminApi'
 
 const Dashbord = () => {
   const [vehicle,setvehicle]=useState([])
@@ -8,17 +8,16 @@ const Dashbord = () => {
   useEffect(()=>{
     const fetchvehicles=async()=>{
       try {
-      const response=await axios.get('http://localhost:8080/api/admin/allVehicles',{withCredentials:true})
+      const response=await adminApi.get('/allVehicles')
       setvehicle(response.data.data)
 
-      const users=await axios.get('http://localhost:8080/api/admin/users',{withCredentials:true})
+      const users=await adminApi.get('/users')
       setusers(users.data.data)
 
-      const bookings=await axios.get('http://localhost:8080/api/admin/bookings',{withCredentials:true})
+      const bookings=await adminApi.get('/bookings')
       setbookings(bookings.data.data)
     } catch (error) {
-      console.log(error,'error to fetch vehicles');
-      
+      console.log(error,'error to fetch vehicles');      
     }
     }
     fetchvehicles()

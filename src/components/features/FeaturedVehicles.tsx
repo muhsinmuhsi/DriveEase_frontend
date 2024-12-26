@@ -1,4 +1,3 @@
-import React from 'react'
 import bmw from '../../assets/BMW.png'
 import audi from '../../assets/Audi.png'
 import rangerover from '../../assets/ranger over.png'

@@ -1,10 +1,10 @@
 import React from 'react'
 import { useAppSelector } from '../redux/hooks'
-import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast'
 import Header from '../components/header/Header'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
+import api from '../api'
 const Payment = () => {
     const vehicle=useAppSelector((state)=>state.vehicle.selectedVehicle)
     const days=useAppSelector((state)=>state.dateslice.daysdifference)
@@ -59,8 +59,8 @@ const Payment = () => {
             return;
           }
   
-          const response = await axios.post(
-            `http://localhost:8080/api/users/vehicle/payment/${userparse._id}`,
+          const response = await api.post(
+            `/vehicle/payment/${userparse._id}`,
             {
               amount: totalAmount,
               vehicleName: vehicle?.name,
@@ -93,7 +93,7 @@ const Payment = () => {
               };
   
               try {
-                await axios.post("http://localhost:8080/api/users/vehicle/verifyPayment", paymentData, {
+                await api.post("/vehicle/verifyPayment", paymentData, {
                   withCredentials: true,
                   headers: {
                     "Content-Type": "application/json",

@@ -1,4 +1,3 @@
-import axios from 'axios'
 import  { useEffect} from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { addSelectedVehicle} from '../../redux/vehicleSlice';
@@ -9,6 +8,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import Footer from '../features/Footer';
 import { HiPencilSquare } from "react-icons/hi2";
+import api from '../../api';
 
 
 
@@ -25,7 +25,7 @@ const Finalvehicle = () => {
      useEffect(()=>{
         const fetchvehicle=async()=>{
             try {
-                const response=await axios.get(`http://localhost:8080/api/users/vehicle/${params.id}`,{withCredentials:true})
+                const response=await api.get(`/vehicle/${params.id}`,)
                 dispatch(addSelectedVehicle(response.data.data))
 
             } catch (error) {

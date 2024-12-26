@@ -1,7 +1,7 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import Header from '../components/header/Header'
 import Footer from '../components/features/Footer'
+import api from '../api'
 const Mybookings = () => {
     const [bookings,setbookings]=useState([])
 
@@ -10,7 +10,7 @@ const Mybookings = () => {
             const user=localStorage.getItem('user')
             const userparse=JSON.parse(user)
             try {
-                const response=await axios.get(`http://localhost:8080/api/users/mybookings/${userparse._id}`,{withCredentials:true})
+                const response=await api.get(`/mybookings/${userparse._id}`)
                 setbookings(response.data.user.Bookings)
             } catch (error) {
                 console.log(error,'error');

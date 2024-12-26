@@ -8,6 +8,7 @@ import { IoMdStar } from 'react-icons/io';
 import { IoMdStarOutline } from "react-icons/io"; 
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
 import { Link } from 'react-router-dom'
+import api from '../api'
 
 
 const Collections = () => { 
@@ -38,7 +39,7 @@ const Collections = () => {
 
   const vehicleByCategory = async (category: string): Promise<vehicleSchema[] | undefined> => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/users/vehicles/category/${category}`,{withCredentials:true});
+      const response = await api.get(`/vehicles/category/${category}`);
       return response.data.data;
     } catch (error) {
       console.error("Error fetching vehicles:", error);
@@ -61,7 +62,7 @@ const Collections = () => {
           <h1 className='text-3xl md:text-5xl font-bold text-center p-6 '>Economy Car's</h1>
         </div>
         <div className=' flex flex-col border border-b-black '>
-          <div className=' flex  justify-center mt-14 '>
+          <div className=' flex flex-wrap justify-center mt-14 '>
           {
             fourVehicleEconomy.map((data)=>(
               <div className='bg-green-100 w-60 h-80  p-3  m-3 rounded-xl'>
@@ -101,7 +102,7 @@ const Collections = () => {
         </div>
 
       <div className='border border-b-black'>
-        <div className=' flex  justify-center mt-14'>
+        <div className=' flex flex-wrap justify-center mt-14'>
         {
             fourVehicleLuxury.map((data)=>(
               <div className='bg-green-100 w-60 h-80  p-3  m-3 rounded-xl'>
@@ -125,9 +126,7 @@ const Collections = () => {
                   <div className='flex justify-center mt-4'>
                     <button className='bg-black rounded-lg p-2 text-white font-semibold'>Rent Now</button>
                   </div>
-                  
-                  
-
+              
                 </div>
                 
               </div>

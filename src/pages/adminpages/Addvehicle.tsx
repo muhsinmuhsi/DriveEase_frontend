@@ -1,8 +1,6 @@
-import axios from 'axios';
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import toast from 'react-hot-toast';
-
-import Swal from 'sweetalert2';
+import adminApi from '../../adminApi';
 
 const AddVehicle = () => {
   const [newVehicle, setNewVehicle] = useState({
@@ -69,8 +67,7 @@ const AddVehicle = () => {
         formData.append(`bookings[${index}][dropoffDate]`, booking.dropoffDate);
       });
 console.log(newVehicle.category,'this is form data');
-      const res = await axios.post("http://localhost:8080/api/admin/addVehicle", formData, {
-        withCredentials:true,
+      const res = await adminApi.post("/addVehicle", formData, {
         headers: {
           "Content-Type":"multipart/form-data",
         }

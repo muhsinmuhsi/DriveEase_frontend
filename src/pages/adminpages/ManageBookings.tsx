@@ -1,12 +1,12 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import adminApi from '../../adminApi'
 
 const ManageBookings = () => {
   const [bookings,setbookings]=useState([])
   useEffect(()=>{
     const fetchbookings=async()=>{
       try {
-        const response=await axios.get('http://localhost:8080/api/admin/bookings',{withCredentials:true})
+        const response=await adminApi.get('/bookings')
         setbookings(response.data.data)
       } catch (error) {
         console.log(error,'error to fetch bookings');
@@ -17,8 +17,8 @@ const ManageBookings = () => {
   },[])
   return (
     <div>
-      <h2 className='text-2xl font-bold '>All Bookings</h2>
-      <table>
+      <h2 className='text-2xl font-bold text-center p-7'>All Bookings</h2>
+      <table className='ml-52 text-center '>
       <thead>
                 <tr className="bg-gray-200">
                   <th className="border border-gray-300 px-4 py-2 text-left">NO</th>

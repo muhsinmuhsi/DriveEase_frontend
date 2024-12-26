@@ -9,6 +9,7 @@ import AdminProtected from "./components/Adim/AdminProtected";
 const App: React.FC = () => {
     
     return (
+        
         <BrowserRouter>
         <Routes>
             <Route path="/*" element={<UserRoutes/>}/>

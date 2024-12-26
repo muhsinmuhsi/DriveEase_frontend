@@ -1,5 +1,4 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { IoMdStar } from 'react-icons/io';
 import { IoMdStarOutline } from "react-icons/io"; 
 import EditVehicle from '../../components/Adim/EditVehicle';
@@ -7,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addEconomyvehicle } from '../../redux/vehicleSlice';
 import toast, { Toaster } from 'react-hot-toast';
 import Swal from 'sweetalert2';
+import adminApi from '../../adminApi';
 
 const ManageVehicles = () => {
     const [isshowmodal,setshowmodal]=useState(false)
@@ -28,8 +28,7 @@ const ManageVehicles = () => {
         const fetchcollectoions=async()=>{
           const token=localStorage.getItem('admin_token')
             try {
-                const response=await axios.get('http://localhost:8080/api/admin/allVehicles',{
-                 withCredentials:true,
+                const response=await adminApi.get('/allVehicles',{
                 headers:{
                   Authorization:`${token}`
                 }
@@ -56,12 +55,12 @@ const ManageVehicles = () => {
           }).then(async(result) => {
             if (result.isConfirmed) {
               Swal.fire({
-                title: 'Logouted!',
+                title: 'Deleted!',
                 text: 'Your file has been Logouted.',
                 icon: 'success'
               });
       try {
-        const response= await axios.delete(`http://localhost:8080/api/admin/vehicle/delete/${vehicleId}`,{withCredentials:true})
+        const response= await adminApi.delete(`/vehicle/delete/${vehicleId}`)
         toast.success(`${response.data.message}|| vehicle deleted success fully`)
         setshowmodal(false)
       } catch (error) {
@@ -77,8 +76,8 @@ const ManageVehicles = () => {
   return (
     <div>
       <Toaster/>
-        <h1 className='text-3xl text-center font-bold mt-7 mb-8'>All Collections</h1>
-        <div className='flex flex-wrap'>
+        <h1 className='text-3xl text-center font-bold mt-7 mb-8 '>All Collections</h1>
+        <div className='flex flex-wrap pl-20'>
             {
                 vehicle.map((data:any)=>{
                     return(

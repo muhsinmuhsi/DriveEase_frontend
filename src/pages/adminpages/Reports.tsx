@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import  { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -11,6 +10,7 @@ import {
   Legend,
   ChartData,
 } from "chart.js";
+import adminApi from "../../adminApi";
 
 // Register the necessary components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
@@ -24,9 +24,8 @@ const BookingChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8080/api/admin/booking-stats",
-          { withCredentials: true }
+        const response = await adminApi.get(
+          "/booking-stats",
         );
         const { data } = response.data;
 

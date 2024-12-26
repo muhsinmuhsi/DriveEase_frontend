@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useState, useRef } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import api from "../../api";
 
 const Otpverify = () => {
   const [otp, setOtp] = useState<string[]>(["", "", "", ""]);
@@ -23,8 +23,8 @@ const Otpverify = () => {
 
   const handlesubmit = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/users/veryfyacount",
+      const response = await api.post(
+        "/veryfyacount",
         { otp: otp.join("") }, // Combine OTP digits into a string
         {
           headers: {

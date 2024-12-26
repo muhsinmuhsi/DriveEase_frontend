@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useAppSelector } from '../../redux/hooks'
 import { useNavigate, useParams } from 'react-router-dom'
 import Header from '../header/Header'
@@ -6,13 +6,25 @@ import { IoMdStar } from 'react-icons/io';
 import { IoMdStarOutline } from "react-icons/io";
 import Footer from '../features/Footer';
 import { IoIosArrowRoundForward } from "react-icons/io";
+import Reviews from './Reviews';
+import toast from 'react-hot-toast';
 
 
 const FetchCategoryFull = () => {
     const {category}=useParams()
     const vehicles=useAppSelector((state)=>category?state.vehicle[category]:[])
     const navigate=useNavigate()
+    const [showmodal,setShowModal]=useState(false)
+    const [vehicleid,setvehicleid]=useState(String)
 
+    const onclose=()=>{
+      setShowModal(false)
+    }
+
+    const clickHandle=(id:string)=>{
+      setShowModal(true)
+      setvehicleid(id)
+    }
 
     const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 2;
@@ -30,6 +42,14 @@ const FetchCategoryFull = () => {
       setCurrentPage(page);
     }
   };
+
+  const rentnow=()=>{
+    navigate('/')
+    toast('please select date ⚠️',{
+      icon:'😊'
+    })
+
+  }
 
   return (
     <div>
@@ -65,12 +85,12 @@ const FetchCategoryFull = () => {
                 <IoMdStarOutline />
               </div>
               <div>
-                <button className='text-green-700 hover:text-blue-600'>see reviews</button>
+                <button className='text-green-700 hover:text-blue-600' onClick={()=>clickHandle(data._id)}>see reviews</button>
               </div>
               </div>
               <div className='flex flex-col items-end pr-2'>
                 <p className='font-bold '>₹{data.pricePerDay}/Day</p>
-                <button className='font-semibold' onClick={()=>navigate('/')} >Rent Now <IoIosArrowRoundForward className='inline' /></button>
+                <button className='font-semibold' onClick={()=>rentnow()} >Rent Now <IoIosArrowRoundForward className='inline' /></button>
              </div>
           </div>
       </div>   
@@ -106,6 +126,10 @@ const FetchCategoryFull = () => {
           Next
         </button> 
       </div>
+      <Reviews isopen={showmodal} 
+      onclose={onclose}
+      vehicleId={vehicleid}
+      />
 
       <Footer/>
     </div>

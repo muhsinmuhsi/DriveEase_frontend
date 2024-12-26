@@ -14,9 +14,14 @@ import Payment from "../pages/Payment";
 import Mybookings from "../pages/Mybookings";
 import AdminLogin from "../pages/adminpages/AdminLogin";
 import PaginationExample from "../pages/dummy";
+import { Toaster } from "react-hot-toast";
 
 const UserRoutes: React.FC = () => {
   return (
+    <>
+    <div>
+      <Toaster/>
+    </div>
     <Routes>
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
@@ -34,6 +39,8 @@ const UserRoutes: React.FC = () => {
       <Route path="/adminLogin" element={<AdminLogin/>} />
       <Route path="/dummy" element={<PaginationExample/>} />
     </Routes>
+    </>
+    
   );
 };
 

@@ -1,12 +1,11 @@
-import React from 'react'
-import toast,{Toaster} from 'react-hot-toast'
+import toast from 'react-hot-toast'
 import logo from '../../assets/logo-transparent-png.png'
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import axios from 'axios';
 import Googlelogin from './Googlelogin';
 import { useNavigate } from 'react-router-dom';
 import { RiAdminFill } from "react-icons/ri";
+import api from '../../api';
 
 const signupvalidation=yup.object({
         email: yup.string().email("Please enter valid email").required("Please enter email"),
@@ -29,7 +28,7 @@ const {errors,handleBlur,handleChange,handleSubmit}=useFormik({
 
 
     try {
-        const response=await axios.post('http://localhost:8080/api/users/Login',values,{
+        const response=await api.post('/Login',values,{
           withCredentials:true,
             headers:{
               "Content-Type":"application/json",
@@ -45,13 +44,14 @@ const {errors,handleBlur,handleChange,handleSubmit}=useFormik({
    }
 })
   return (
+    
     <div>
+      
       <div className=' h-screen flex flex-col justify-center items-center bg-green-400'>
-  
   <div>
       <img src={logo} alt=" logo.png" className=' h-20 w-25 '/>
   </div>
-<Toaster/>
+
 <div className='flex  items-center bg-white shadow-md rounded-md mb-5'>
   <div className="w-full max-w-xs">
 <form className="bg-white  rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit} >

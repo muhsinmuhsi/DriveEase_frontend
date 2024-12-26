@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
+import adminApi from "../../adminApi";
 
 export default function UserModal({isopen,onclose,userId}) {
     const [user,setuser]=useState({})
@@ -7,12 +7,8 @@ export default function UserModal({isopen,onclose,userId}) {
   useEffect(()=>{
     const fetchuserbyid=async()=>{
     try {
-        const response=await axios.get(`http://localhost:8080/api/admin/user/${userId}`,{
-            withCredentials:true
-        });
-        setuser(response.data.data)
-        console.log('this is response from usermodla',response.data.data);
-        
+        const response=await adminApi.get(`/user/${userId}`);
+        setuser(response.data.data)        
     } catch (error) {
         console.log(error,"error to fetching user");
     }
@@ -28,7 +24,7 @@ export default function UserModal({isopen,onclose,userId}) {
           <div
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
           >
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+            <div className="relative w-96 my-6 mx-auto max-w-3xl">
               {/*content*/}
               <div className="border border-white rounded-lg shadow-lg relative flex flex-col w-full bg-gray-200 text-black  outline-none focus:outline-none">
                 {/*header*/}
@@ -46,7 +42,7 @@ export default function UserModal({isopen,onclose,userId}) {
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative p-6 h-96 overflow-auto">
+                <div className="relative p-6 h-96 overflow-auto scrollbar-none">
                     <div className="bg-gray-100 rounded shadow-md p-3">
                       <p className="text-lg font-bold pb-3">{user.username}</p>
                       <p>email:{user.email}</p>
@@ -56,7 +52,7 @@ export default function UserModal({isopen,onclose,userId}) {
                         <h4 className="text-center text-xl font-semibold pt-3">Bookings</h4>
                         <div className="flex flex-col ">
                         {
-                           user.Bookings?.map((booking,index)=>{
+                           user.Bookings?.map((booking,)=>{
                             const pickupdate=new Date(booking.startDate).toLocaleDateString()
                             const dropoffdate=new Date(booking.endDate).toLocaleDateString()
 
@@ -94,7 +90,7 @@ export default function UserModal({isopen,onclose,userId}) {
               </div>
             </div>
           </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-white"></div>
+          <div className="opacity-50 fixed inset-0 z-40 bg-black"></div>
         </>
       ) : null}
     </>

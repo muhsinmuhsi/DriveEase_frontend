@@ -11,7 +11,7 @@ interface Booking {
   }
 
 export interface vehicleSchema {
-    id:string;
+    _id:string;
     name:string;
     type:string;
     brand:string;

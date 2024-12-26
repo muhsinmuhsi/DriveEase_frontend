@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { useAppSelector } from '../../redux/hooks'
-import axios from 'axios'
 import Header from '../header/Header'
 import { vehicleSchema } from '../../redux/vehicleSlice';
 import { BsFuelPump } from "react-icons/bs";
@@ -8,6 +7,7 @@ import { GiGearStickPattern } from "react-icons/gi";
 import { MdOutlineAirlineSeatReclineNormal } from "react-icons/md";
 import { RiMoneyRupeeCircleFill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
+import api from '../../api';
 
 
 
@@ -22,14 +22,13 @@ const Availablevehicles = () => {
   useEffect(() => {
     const fetchAvailableVehicles = async () => {
       try {
-        const response = await axios.post(
-          'http://localhost:8080/api/users/availablevehicles',
+        const response = await api.post(
+          '/availablevehicles',
           { pickupDate: pickupdate, dropofDate: dropoffdate },
           {
             headers: {
               "Content-Type": "application/json",
             },
-            withCredentials: true
           }
         );
         const vehicles = response.data.checkAvaillity || [];
