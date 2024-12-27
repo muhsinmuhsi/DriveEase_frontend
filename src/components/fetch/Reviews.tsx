@@ -4,8 +4,32 @@ import { IoCloseSharp, IoSend } from 'react-icons/io5';
 import api from '../../api';
 
 
-const Reviews = ({isopen,onclose,vehicleId}) => {
-    const [vehicle,setvehicle]=useState()
+interface Review {
+  content: string;
+  updatedAt?: string; // optional because it might not always exist
+  userId?: {
+    username: string;
+  };
+}
+export interface vehicleSchema {
+  _id: string;
+  name: string;
+  transmission: string;
+  fuelType: string;
+  seatingCapacity: number;
+  pricePerDay: number;
+  image: string;
+  Reviews?: Review[]; // Add the Reviews property as an array of Review
+}
+
+interface ReviewsProps {
+  isopen: boolean;
+  onclose: () => void;
+  vehicleId: string;
+}
+
+const Reviews:React.FC<ReviewsProps> = ({isopen,onclose,vehicleId}) => {
+    const [vehicle,setvehicle]=useState<vehicleSchema|null>(null)
     const [Reviews,setReveiws]=useState('')
     const [add,setadd]=useState(false)
 

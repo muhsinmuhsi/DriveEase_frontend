@@ -1,4 +1,4 @@
-import { GoogleLogin } from "@react-oauth/google";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
@@ -21,12 +21,12 @@ const Googlelogin: React.FC = () => {
     const [profile, setProfile] = useState<Profile | null>(null);
     const navigate=useNavigate()
 
-    const login = useGoogleLogin({
+     useGoogleLogin({
         onSuccess: (codeResponse: User) => setUser(codeResponse),
         onError: (error) => console.log('Login Failed:', error),
     });
 
-    const hundleloginsuccess= async(credentialresponse:any)=>{
+    const hundleloginsuccess= async(credentialresponse:CredentialResponse)=>{
       const {credential}=credentialresponse
     
       try {
@@ -103,93 +103,3 @@ const Googlelogin: React.FC = () => {
 };
 
 export default Googlelogin ;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import { useGoogleLogin } from "@react-oauth/google";
-// import React from "react";
-
-// interface User {
-//   name: string;
-//   email: string;
-//   [key: string]: unknown | string;
-// }
-
-// interface GoogleLoginButtonProps {
-//   setUser: React.Dispatch<React.SetStateAction<User | null>>;
-// }
-
-// const GoogleLogin: React.FC<GoogleLoginButtonProps> = ({ setUser }) => {
-//   const handleSuccess = async (authResult: { code?: string }) => {
-//     try {
-//       if (authResult.code) {
-//         console.log("Auth code:", authResult.code);
-
-//         const response = await fetch("http://localhost:8080/api/users/googleauth", {
-//           method: "POST", // Use POST instead of GET for sending the body
-//           body: JSON.stringify({ code: authResult.code }),
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//         });
-
-//         const result = await response.json();
-
-//         console.log("API Response:", result);
-
-//         if (result.user) {
-//           setUser(result.user); // Ensure 'result.user' matches the 'User' interface
-//           alert("Successfully logged in");
-//         } else {
-//           throw new Error("User data is missing in the API response");
-//         }
-//       } else {
-//         throw new Error("Authentication failed: Code not received");
-//       }
-//     } catch (error) {
-//       console.error("Login error:", error);
-//     }
-//   };
-
-//   const handleError = (errorResponse: {
-//     error?: string;
-//     error_description?: string;
-//     error_uri?: string;
-//   }) => {
-//     console.error("Google Login Error:", errorResponse);
-//     alert("An error occurred during Google login. Please try again.");
-//   };
-
-//   const googleLogin = useGoogleLogin({
-//     onSuccess: handleSuccess,
-//     onError: handleError,
-//     flow: "auth-code",
-//     scope: "openid email profile",
-//   });
-
-//   return (
-//     <button
-//       style={{
-//         padding: "10px 20px",
-//       }}
-//       onClick={googleLogin}
-//     >
-//       Sign in with Google
-//     </button>
-//   );
-// };
-
-// export default GoogleLogin;

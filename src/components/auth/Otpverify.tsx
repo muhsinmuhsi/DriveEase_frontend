@@ -23,7 +23,7 @@ const Otpverify = () => {
 
   const handlesubmit = async () => {
     try {
-      const response = await api.post(
+       await api.post(
         "/veryfyacount",
         { otp: otp.join("") }, // Combine OTP digits into a string
         {

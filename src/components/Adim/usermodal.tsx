@@ -1,8 +1,27 @@
 import  { useEffect, useState } from "react";
 import adminApi from "../../adminApi";
 
-export default function UserModal({isopen,onclose,userId}) {
-    const [user,setuser]=useState({})
+interface UserModalProps {
+  isopen: boolean; // Corrected casing
+  onclose: () => void;
+  userId: string;
+}
+
+interface Booking {
+  startDate: string;
+  endDate: string;
+  vehiclename: string;
+  amount: number;
+}
+
+interface User {
+  username: string;
+  email: string;
+  Bookings?: Booking[]; // Optional bookings array
+}
+
+export default function UserModal({isopen,onclose,userId}:UserModalProps) {
+    const [user,setuser]=useState<User|null>(null)
 
   useEffect(()=>{
     const fetchuserbyid=async()=>{
@@ -44,15 +63,15 @@ export default function UserModal({isopen,onclose,userId}) {
                 {/*body*/}
                 <div className="relative p-6 h-96 overflow-auto scrollbar-none">
                     <div className="bg-gray-100 rounded shadow-md p-3">
-                      <p className="text-lg font-bold pb-3">{user.username}</p>
-                      <p>email:{user.email}</p>
+                      <p className="text-lg font-bold pb-3">{user?.username}</p>
+                      <p>email:{user?.email}</p>
                     </div>
 
                     <div>
                         <h4 className="text-center text-xl font-semibold pt-3">Bookings</h4>
                         <div className="flex flex-col ">
                         {
-                           user.Bookings?.map((booking,)=>{
+                           user?.Bookings?.map((booking,)=>{
                             const pickupdate=new Date(booking.startDate).toLocaleDateString()
                             const dropoffdate=new Date(booking.endDate).toLocaleDateString()
 

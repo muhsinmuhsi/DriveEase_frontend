@@ -8,11 +8,23 @@ import Footer from '../features/Footer';
 import { IoIosArrowRoundForward } from "react-icons/io";
 import Reviews from './Reviews';
 import toast from 'react-hot-toast';
+import { vehicleState } from '../../redux/vehicleSlice';
+
+interface Vehicle {
+  _id: string;
+  name: string;
+  transmission: string;
+  fuelType: string;
+  seatingCapacity: number;
+  image: string;
+  pricePerDay: number;
+}
+
 
 
 const FetchCategoryFull = () => {
     const {category}=useParams()
-    const vehicles=useAppSelector((state)=>category?state.vehicle[category]:[])
+    const vehicles=useAppSelector((state:{vehicle:vehicleState})=>category?state.vehicle[category]:[])
     const navigate=useNavigate()
     const [showmodal,setShowModal]=useState(false)
     const [vehicleid,setvehicleid]=useState(String)
@@ -55,7 +67,7 @@ const FetchCategoryFull = () => {
     <div>
       <Header />
       <div className="pt-20 flex flex-col items-center">
-        {currentItems.map((data) => (
+        {currentItems.map((data:Vehicle) => (
        <div className='bg-green-300 w-8/12 m-3 rounded-xl shadow-md'>
 
         

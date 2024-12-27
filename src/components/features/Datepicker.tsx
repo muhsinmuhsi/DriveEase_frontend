@@ -1,6 +1,6 @@
 import DatePicker from "react-datepicker";
 import { IoMdRadioButtonOn } from "react-icons/io";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useAppDispatch} from "../../redux/hooks";
 import {
   adddropoffDate,
   addpickupdate,
@@ -40,15 +40,6 @@ const validationSchema = yup.object().shape({
 
 const Datepickerdiv = () => {
   const dispatch = useAppDispatch();
-  const pickupdate = useAppSelector(
-    (state) => state.dateslice.pickupDate
-  ) as Date | null;
-  const dropoffdate = useAppSelector(
-    (state) => state.dateslice.dropoffDate
-  ) as Date | null;
-  const pickuplocation = useAppSelector(
-    (state) => state.dateslice.pickupLocation
-  );
   const navigate = useNavigate();
 
   const initialValues = {

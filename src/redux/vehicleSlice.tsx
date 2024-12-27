@@ -26,14 +26,14 @@ export interface vehicleSchema {
 
 }
 
-interface vehicleState {
+export interface vehicleState {
     EconomyCar:vehicleSchema[],
     LuxuryCar:vehicleSchema[],
     selectedVehicle:vehicleSchema|null
 
 }
 
-const initialState:vehicleState={
+export const initialState:vehicleState={
     EconomyCar:[],
     LuxuryCar:[],
     selectedVehicle:null

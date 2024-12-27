@@ -1,22 +1,35 @@
 import { useFormik } from 'formik';
 import  { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
-import { number } from 'yup';
-import { useAppDispatch } from '../../redux/hooks';
 import adminApi from '../../adminApi';
 
-const EditVehicle = ({isOpen,onclose,vehicleId}) => {
-    const [image,setimage]=useState(null)
-    const dispatch=useAppDispatch()
+interface EditVehicleProps {
+  isOpen: boolean;
+  onclose: () => void;
+  vehicleId: string;
+}
+
+interface FormValues {
+  name: string;
+  type: string;
+  brand: string;
+  seatingCapacity: number;
+  pricePerDay: number;
+  fuelType: string;
+  transmission: string;
+}
+
+const EditVehicle:React.FC<EditVehicleProps> = ({isOpen,onclose,vehicleId}) => {
+    const [image,setimage]=useState<File|null>(null)
 
 
-    const {values,handleBlur,handleChange,handleSubmit, setValues}=useFormik({
+    const {values,handleChange,handleSubmit, setValues}=useFormik<FormValues>({
         initialValues:{
               name: '',
               type:'',
               brand:'',
-              seatingCapacity: number,
-              pricePerDay:number,
+              seatingCapacity: 0,
+              pricePerDay:0,
               fuelType:'',
               transmission:'',
               
@@ -29,8 +42,8 @@ const EditVehicle = ({isOpen,onclose,vehicleId}) => {
           formData.append('name',values.name);
           formData.append('type',values.type);
           formData.append('brand',values.brand);
-          formData.append('seatingCapacity',values.seatingCapacity)
-          formData.append('pricePerDay',values.pricePerDay)
+          formData.append('seatingCapacity',values.seatingCapacity.toString())
+          formData.append('pricePerDay',values.pricePerDay.toString())
           formData.append('fuelType',values.fuelType)
           formData.append('transmission',values.transmission)
           if(image){
@@ -54,9 +67,11 @@ const EditVehicle = ({isOpen,onclose,vehicleId}) => {
       },
     });
 
-    const imagehandle=(event)=>{
-      setimage(event.target.files[0])
-    }
+    const imagehandle = (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (event.target.files && event.target.files[0]) {
+        setimage(event.target.files[0]);
+      }
+    };
 
     useEffect(() => {
         const getvehicle = async () => {
