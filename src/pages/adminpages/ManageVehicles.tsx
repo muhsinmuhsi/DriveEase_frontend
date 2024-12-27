@@ -10,7 +10,7 @@ import adminApi from '../../adminApi';
 
 const ManageVehicles = () => {
     const [isshowmodal,setshowmodal]=useState(false)
-    const [vehicleId,setvehicleId]=useState()
+    const [vehicleId,setvehicleId]=useState<string|null>(null)
     const dipacth=useAppDispatch()
     const vehicle=useAppSelector((state)=>state.vehicle.EconomyCar)
 
@@ -19,7 +19,7 @@ const ManageVehicles = () => {
         setshowmodal(false)
     }
 
-    const edithandle=(id)=>{
+    const edithandle=(id:string)=>{
         setshowmodal(true)
         setvehicleId(id)
     }
@@ -43,7 +43,7 @@ const ManageVehicles = () => {
         fetchcollectoions()
     },[isshowmodal])
 
-    const deletehandle=async(vehicleId)=>{
+    const deletehandle=async(vehicleId:string)=>{
       Swal.fire({
             title: 'Are you sure?',
             text: 'You won\'t be able to revert this!',
@@ -79,7 +79,7 @@ const ManageVehicles = () => {
         <h1 className='text-3xl text-center font-bold mt-7 mb-8 '>All Collections</h1>
         <div className='flex flex-wrap pl-20'>
             {
-                vehicle.map((data:any)=>{
+                vehicle.map((data)=>{
                     return(
                          <div className='bg-gray-300 w-60 h-80  p-3  m-3 rounded-xl'>
                                         <div >

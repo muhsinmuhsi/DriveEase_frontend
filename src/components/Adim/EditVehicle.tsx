@@ -6,7 +6,7 @@ import adminApi from '../../adminApi';
 interface EditVehicleProps {
   isOpen: boolean;
   onclose: () => void;
-  vehicleId: string;
+  vehicleId: string|null;
 }
 
 interface FormValues {

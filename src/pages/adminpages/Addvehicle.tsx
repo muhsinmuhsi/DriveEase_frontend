@@ -2,8 +2,26 @@ import  { useState } from 'react';
 import toast from 'react-hot-toast';
 import adminApi from '../../adminApi';
 
+type Booking = {
+  pickupDate: string;
+  dropoffDate: string;
+};
+
+type Vehicle = {
+  name: string;
+  type: string;
+  brand: string;
+  seatingCapacity: string;
+  pricePerDay: string;
+  fuelType: string;
+  transmission: string;
+  category: string;
+  image: File | null;
+  bookings: Booking[];
+};
+
 const AddVehicle = () => {
-  const [newVehicle, setNewVehicle] = useState({
+  const [newVehicle, setNewVehicle] = useState<Vehicle>({
     name: '',
     type: '',
     brand: '',
@@ -16,17 +34,17 @@ const AddVehicle = () => {
     bookings: []
   });
 
-  const [newBooking, setNewBooking] = useState({
+  const [newBooking, setNewBooking] = useState<Booking>({
     pickupDate: '',
     dropoffDate: ''
   });
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value, files } = e.target as HTMLInputElement;
     setNewVehicle({ ...newVehicle, [name]: files ? files[0] : value });
   };
 
-  const handleBookingChange = (e) => {
+  const handleBookingChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setNewBooking({ ...newBooking, [name]: value });
   };
@@ -44,7 +62,7 @@ const AddVehicle = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:React.FormEvent) => {
     e.preventDefault();
 
     try {

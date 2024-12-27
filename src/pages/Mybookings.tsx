@@ -8,7 +8,7 @@ const Mybookings = () => {
     useEffect(()=>{
         const fetchbookings=async()=>{
             const user=localStorage.getItem('user')
-            const userparse=JSON.parse(user)
+            const userparse=JSON.parse(user as string)
             try {
                 const response=await api.get(`/mybookings/${userparse._id}`)
                 setbookings(response.data.user.Bookings)

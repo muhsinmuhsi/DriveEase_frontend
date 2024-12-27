@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import  { useEffect } from 'react'
 import Header from '../components/header/Header'
 import headerimg from '.././assets/Black  and White Modern Car Sale Facebook Post.png'
-import axios from 'axios'
 import { useAppDispatch, useAppSelector } from '../redux/hooks'
 import { addEconomyvehicle, addLuxuryVehicle, vehicleSchema } from '../redux/vehicleSlice'
 import { IoMdStar } from 'react-icons/io';

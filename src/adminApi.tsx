@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 
 const adminApi= axios.create({
     baseURL: "https://driveease-backend.onrender.com/api/admin",

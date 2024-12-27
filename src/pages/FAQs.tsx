@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import faqimage from '../assets/5175820.jpg'
 import Header from '../components/header/Header';
 import Footer from '../components/features/Footer';
 
 
 const FAQs = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState<number|null>(null);
 
-  const toggleAccordion = (index) => {
+  const toggleAccordion = (index: number) => {
     setActiveIndex(index === activeIndex ? null : index);
   };
 

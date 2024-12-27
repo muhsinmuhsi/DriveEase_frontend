@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Header from '../components/header/Header'
 import Facilities from '../components/features/Facilities';
 import FeaturedVehicles from '../components/features/FeaturedVehicles';
@@ -9,7 +8,6 @@ import Emailsubscribtion from "../components/features/Emailsubscribtion";
 import Datepickerdiv from "../components/features/Datepicker"
 import Footer from "../components/features/Footer";
 import carrentbanner from '../assets/carrent banner.jpg'
-import CarRentalForm from "./dummy";
 
 const Home = () => {
     

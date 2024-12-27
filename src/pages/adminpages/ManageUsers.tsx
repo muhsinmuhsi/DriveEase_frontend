@@ -2,16 +2,22 @@ import React, { useEffect, useState } from 'react'
 import UserModal from '../../components/Adim/usermodal'
 import adminApi from '../../adminApi';
 
+interface User {
+  _id:string;
+  username:string;
+  email:string;
+  createdAt:string;
+}
 const ManageUsers = () => {
-    const [users,setusers]=useState([])
+    const [users,setusers]=useState<User[]>([])
     const [showModal, setShowModal] = React.useState(false);
-    const [userId,setuserId]=useState()
+    const [userId,setuserId]=useState<string|null>(null)
 
    const closemodal=()=>{
     setShowModal(false)
    }
 
-   const clickhandle=(id)=>{
+   const clickhandle=(id:string)=>{
     setShowModal(true)
     setuserId(id)
    }
@@ -40,7 +46,7 @@ const ManageUsers = () => {
               </thead>  
               <tbody >
                 {
-                    users.map((data:any,index)=>{
+                    users.map((data,index)=>{
                           const createddate=new Date(data.createdAt).toLocaleDateString()
                     return(
                       <tr key={data._id} className="hover:bg-gray-100" onClick={()=>clickhandle(data._id)}>

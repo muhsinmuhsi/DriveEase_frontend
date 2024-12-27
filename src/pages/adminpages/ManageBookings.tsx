@@ -1,8 +1,20 @@
 import { useEffect, useState } from 'react'
 import adminApi from '../../adminApi'
 
+
+interface User {
+  username: string;
+}
+
+interface Booking {
+  _id: string;
+  startDate: string;
+  endDate: string;
+  vehicleName: string;
+  userId: User; // Adjust this based on the API response structure
+}
 const ManageBookings = () => {
-  const [bookings,setbookings]=useState([])
+  const [bookings,setbookings]=useState<Booking[]>([])
   useEffect(()=>{
     const fetchbookings=async()=>{
       try {

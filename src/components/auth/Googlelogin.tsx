@@ -57,7 +57,7 @@ const Googlelogin: React.FC = () => {
     useEffect(() => {
         if (user) {
             axios
-                .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+            .get<Profile>(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
                     headers: {
                         Authorization: `Bearer ${user.access_token}`,
                         Accept: 'application/json',
@@ -66,13 +66,14 @@ const Googlelogin: React.FC = () => {
                 .then((res) => {
                     setProfile(res.data);
                 })
-                .catch((err) => console.log(err));
+                .catch((err:unknown) => console.log(err));
         }
     }, [user]);
 
     const logOut = () => {
         googleLogout();
         setProfile(null);
+        
     };
 
     return (

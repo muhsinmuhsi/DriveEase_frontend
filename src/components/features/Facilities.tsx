@@ -1,4 +1,3 @@
-import React from 'react'
 import { GiHomeGarage } from "react-icons/gi";
 import { GrVmMaintenance } from "react-icons/gr";
 import { GiMultipleTargets } from "react-icons/gi";

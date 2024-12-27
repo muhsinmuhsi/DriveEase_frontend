@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import Header from '../components/header/Header';
 import { FaArrowRight } from "react-icons/fa";
 import toast,{Toaster} from 'react-hot-toast';
@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const DocumentCollect = () => {
-  const [license, setLicense] = useState(null);
+  const [license, setLicense] = useState<File|null>(null);
   const navigate=useNavigate()
 
   // Optional: Show selected file name
@@ -64,7 +64,11 @@ const DocumentCollect = () => {
             <input
               id="dropzone-file"
               type="file"
-              onChange={(e) => setLicense(e.target.files[0])} // Store the file object
+              onChange={(e) =>{
+                if (e.target.files && e.target.files[0]) {
+                  setLicense(e.target.files[0]); // Store the file object
+                }
+              }}  
               className="hidden"
             />
           </label>

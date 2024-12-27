@@ -1,13 +1,5 @@
-import React from 'react';
 import Header from '../components/header/Header';
 import Footer from '../components/features/Footer';
-import { FaCommentDollar } from "react-icons/fa";
-import { FaDollarSign } from "react-icons/fa6";
-import { FaSackDollar } from "react-icons/fa6";
-import { RiMoneyRupeeCircleFill } from "react-icons/ri";
-import { FaFileInvoiceDollar } from "react-icons/fa";
-import { RiExchangeDollarLine } from "react-icons/ri";
-import backgroundimage from '../assets/pricing background.png';
 
 const Pricing = () => {
  

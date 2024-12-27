@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -15,6 +15,13 @@ import adminApi from "../../adminApi";
 // Register the necessary components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
+// Define type for booking stats
+interface BookingStats {
+  month: string;
+  totalBookings: number;
+  totalAmount: number;
+}
+
 const BookingChart = () => {
   const [chartData, setChartData] = useState<ChartData<"bar">>({
     labels: [],
@@ -24,14 +31,12 @@ const BookingChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await adminApi.get(
-          "/booking-stats",
-        );
-        const { data } = response.data;
+        const response = await adminApi.get("/booking-stats");
+        const { data }: { data: BookingStats[] } = response.data;
 
-        const labels = data.map((item) => item.month);
-        const bookingsData = data.map((item) => item.totalBookings);
-        const amountData = data.map((item) => item.totalAmount);
+        const labels = data.map((item: BookingStats) => item.month);
+        const bookingsData = data.map((item: BookingStats) => item.totalBookings);
+        const amountData = data.map((item: BookingStats) => item.totalAmount);
 
         setChartData({
           labels,
@@ -77,9 +82,7 @@ const BookingChart = () => {
                 display: true,
                 text: "Total Bookings",
               },
-              ticks: {
-                beginAtZero: true,
-              },
+              suggestedMin: 0, // Ensure the y-axis starts at zero
             },
             yAmount: {
               type: "linear",
@@ -88,9 +91,7 @@ const BookingChart = () => {
                 display: true,
                 text: "Total Amount",
               },
-              ticks: {
-                beginAtZero: true,
-              },
+              suggestedMin: 0, // Ensure the y-axis starts at zero
               grid: {
                 drawOnChartArea: false, // Prevent grid lines from overlapping
               },

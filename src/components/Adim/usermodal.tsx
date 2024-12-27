@@ -4,7 +4,7 @@ import adminApi from "../../adminApi";
 interface UserModalProps {
   isopen: boolean; // Corrected casing
   onclose: () => void;
-  userId: string;
+  userId: string|null;
 }
 
 interface Booking {
