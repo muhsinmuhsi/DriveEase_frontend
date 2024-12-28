@@ -36,7 +36,6 @@ const UserRoutes: React.FC = () => {
       <Route path="/booking/payment" element={<Payment />} />
       <Route path="/mybookings" element={<Mybookings />} />
       <Route path="/adminLogin" element={<AdminLogin/>} />
-      <Route path="/dummy" element={<PaginationExample/>} />
     </Routes>
     </>
     
