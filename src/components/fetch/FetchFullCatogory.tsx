@@ -20,10 +20,10 @@ interface Vehicle {
   pricePerDay: number;
 }
 
-
+type ValidCategory = 'EconomyCar' | 'LuxuryCar';
 
 const FetchCategoryFull = () => {
-    const {category}=useParams()
+  const { category } = useParams<{ category: ValidCategory }>();
     const vehicles=useAppSelector((state:{vehicle:vehicleState})=>category?state.vehicle[category]:[])
     const navigate=useNavigate()
     const [showmodal,setShowModal]=useState(false)

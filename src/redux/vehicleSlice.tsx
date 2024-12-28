@@ -5,8 +5,11 @@ interface Booking {
     dropoffDate: string; // ISO date string
   }
 
+  interface UserId{
+    username:string
+  }
   interface Reviews {
-    userId:string,
+    userId:UserId,
     content:string,
   }
 

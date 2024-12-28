@@ -13,7 +13,6 @@ import DocumentCollect from "../pages/DocumentCollect";
 import Payment from "../pages/Payment";
 import Mybookings from "../pages/Mybookings";
 import AdminLogin from "../pages/adminpages/AdminLogin";
-import PaginationExample from "../pages/dummy";
 import { Toaster } from "react-hot-toast";
 
 const UserRoutes: React.FC = () => {
