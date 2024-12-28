@@ -43,7 +43,7 @@ const ResponsiveNavbar = () => {
   
 
   return (
-    <div className="fixed bg-white w-full md:h-20 z-50 ">
+    <div className="sticky top-0 bg-white h-56 w-full md:h-20 z-50  ">
       {/* Navbar */}
       <nav className="w-full   justify-between items-center flex flex-col md:flex-row">
         <div className="text-2xl font-bold"><img src={logo} alt=""className='w-40 h-10 m-4 ' /></div>
