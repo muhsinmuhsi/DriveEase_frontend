@@ -96,8 +96,7 @@ const Googlelogin: React.FC = () => {
               <>
               <GoogleLogin  onSuccess={hundleloginsuccess} onError={handlegooglelogin}></GoogleLogin>
               </>
-                
-               
+           
             )}
         </div>
     );

@@ -65,7 +65,7 @@ const ResponsiveNavbar = () => {
       {/* Modal-like Sidebar */}
       {isNavOpen && (
         <div className="fixed inset-0  bg-opacity-90 z-50">
-          <div className="w-1/5 bg-white shadow-xl p-6 flex flex-col float-right rounded-sm ">
+          <div className=" md:w-1/5  bg-white shadow-xl p-6 flex flex-col float-right rounded-sm ">
             <button
               onClick={() => setIsNavOpen(false)}
               className="self-end text-gray-900 text-xl mb-4"

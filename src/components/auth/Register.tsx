@@ -56,7 +56,7 @@ const Register:React.FC = () => {
            
           } catch (error) {
             console.log(error);
-            toast.error(`something went wrong`)
+            toast.error(`${error}`||'something went wrong ')
             
           }
           
@@ -70,7 +70,7 @@ const Register:React.FC = () => {
             <img src={logo} alt=" logo.png" className=' h-20 w-25 '/>
         </div>
       <Toaster/>
-    <div className='flex  items-center bg-white shadow-md rounded-md '>
+    <div className='flex flex-col md:flex-row items-center bg-white shadow-md rounded-md '>
         <div className="w-full max-w-xs">
   <form className="bg-white  rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit} >
     <div className="mb-4">

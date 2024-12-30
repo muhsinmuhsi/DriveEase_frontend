@@ -47,12 +47,12 @@ const {errors,handleBlur,handleChange,handleSubmit}=useFormik({
     
     <div>
       
-      <div className=' h-screen flex flex-col justify-center items-center bg-green-400'>
+      <div className=' h-auto flex flex-col justify-center items-center bg-green-400'>
   <div>
       <img src={logo} alt=" logo.png" className=' h-20 w-25 '/>
   </div>
 
-<div className='flex  items-center bg-white shadow-md rounded-md mb-5'>
+<div className='flex flex-col md:flex-row items-center bg-white shadow-md rounded-md mb-36'>
   <div className="w-full max-w-xs">
 <form className="bg-white  rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit} >
 <div className="mb-4">

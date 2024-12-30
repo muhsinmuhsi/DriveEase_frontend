@@ -43,15 +43,15 @@ const ManageBookings = () => {
               <tbody>
                 {
                   bookings?.map((data,index)=>{
-                    const StartDate=new Date(data.startDate).toLocaleDateString()
-                    const EndDate=new Date(data.endDate).toLocaleDateString()
+                    const StartDate=new Date(data?.startDate).toLocaleDateString()
+                    const EndDate=new Date(data?.endDate).toLocaleDateString()
                     return(
                       <tr key={data._id} className="hover:bg-gray-100" >
                       <td className="border border-gray-300 px-4 py-2">{index+1}</td>
                       <td className="border border-gray-300 px-4 py-2">
-                        {data.userId.username}
+                        {data?.userId?.username}
                       </td>
-                      <td className="border border-gray-300 px-4 py-2">{data.vehicleName}</td>
+                      <td className="border border-gray-300 px-4 py-2">{data?.vehicleName}</td>
                       <td className="border border-gray-300 px-4 py-2">{StartDate}</td>
                       <td className="border border-gray-300 px-4 py-2">{EndDate}</td>
                     </tr>
