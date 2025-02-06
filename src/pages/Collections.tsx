@@ -6,11 +6,12 @@ import { addEconomyvehicle, addLuxuryVehicle, vehicleSchema } from '../redux/veh
 import { IoMdStar } from 'react-icons/io';
 import { IoMdStarOutline } from "react-icons/io"; 
 import { FaRegArrowAltCircleRight } from "react-icons/fa";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import api from '../api'
 
 
 const Collections = () => { 
+  const navigate=useNavigate()
   const dispatch=useAppDispatch();
   const vehicleeEconomy=useAppSelector((state)=>state.vehicle.EconomyCar)
   const vehicleLuxury=useAppSelector((state)=>state.vehicle.LuxuryCar)
@@ -64,11 +65,11 @@ const Collections = () => {
           <div className=' flex flex-wrap justify-center mt-14 '>
           {
             fourVehicleEconomy.map((data)=>(
-              <div className='bg-green-100 w-60 h-80  p-3  m-3 rounded-xl'>
+              <div className='border border-green-400 w-60 h-80  p-3  m-3 rounded-xl shadow-md'>
                 <div >
-                  <img src={data.image} alt="car-image" className='rounded-lg h-40 shadow-lg' />
+                  <img src={data.image} alt="car-image" className='rounded-lg h-40 ' />
                 </div>
-                <div>
+                <div className='flex flex-col gap-3'>
                   <p className='text-xl font-semibold pt-2'>{data.name}</p>
                   <div className='flex'>
                   <IoMdStar />
@@ -83,7 +84,10 @@ const Collections = () => {
                   <p className='pr-2'> {data.seatingCapacity}seats</p>
                   </div>
                   <div className='flex justify-center mt-4'>
-                    <button className='bg-black rounded-lg p-2 text-white'>Rent Now</button>
+                    <button 
+                    className='bg-green-700 hover:bg-green-900 rounded-lg p-2 text-white'
+                    onClick={()=>navigate('/')}
+                    >Rent Now</button>
                   </div>
                 </div>
                 
@@ -92,7 +96,7 @@ const Collections = () => {
           }
       </div>
         <div className='flex justify-end '>
-         <Link to={"/vehicle/category/EconomyCar"}> <button className='p-2 bg-green-400 rounded-lg mr-5 mb-8 mt-5 hover:bg-green-600 font-semibold '>See More<FaRegArrowAltCircleRight className='inline ml-1' /></button></Link>
+         <Link to={"/vehicle/category/EconomyCar"}> <button className='p-2 bg-green-700 hover:bg-green-900 rounded-lg mr-5 mb-8 mt-5 text-white font-semibold '>See More<FaRegArrowAltCircleRight className='inline ml-1' /></button></Link>
         </div>
         </div>
         
@@ -104,11 +108,11 @@ const Collections = () => {
         <div className=' flex flex-wrap justify-center mt-14'>
         {
             fourVehicleLuxury.map((data)=>(
-              <div className='bg-green-100 w-60 h-80  p-3  m-3 rounded-xl'>
+              <div className='border border-green-400 w-60 h-80  p-3 shadow-lg m-3 rounded-xl'>
                 <div >
-                  <img src={data.image} alt="car-image" className='rounded-lg h-40 shadow-lg' />
+                  <img src={data.image} alt="car-image" className='rounded-lg h-40 ' />
                 </div>
-                <div>
+                <div className='flex flex-col gap-3'>
                   <p className='text-xl font-semibold pt-2'>{data.name}</p>
                   <div className='flex'>
                   <IoMdStar />
@@ -123,7 +127,10 @@ const Collections = () => {
                   <p className='pr-2'> {data.seatingCapacity}seats</p>
                   </div>
                   <div className='flex justify-center mt-4'>
-                    <button className='bg-black rounded-lg p-2 text-white font-semibold'>Rent Now</button>
+                    <button 
+                    className='bg-green-700 hover:bg-green-900 rounded-lg p-2 text-white font-semibold'
+                    onClick={()=>navigate('/')}
+                    >Rent Now</button>
                   </div>
               
                 </div>
@@ -135,7 +142,7 @@ const Collections = () => {
 
         </div>
         <div className='flex justify-end'>
-       <Link to={'/vehicle/category/LuxuryCar'}> <button className='p-2 bg-green-400 rounded-lg mr-5 mb-8 mt-5 hover:bg-green-600 font-semibold'>See More<FaRegArrowAltCircleRight className='inline ml-1' /></button></Link>
+       <Link to={'/vehicle/category/LuxuryCar'}> <button className='p-2 bg-green-700 rounded-lg mr-5 mb-8 mt-5 hover:bg-green-900 text-white font-semibold'>See More<FaRegArrowAltCircleRight className='inline ml-1' /></button></Link>
         </div>
       </div>
       </div>

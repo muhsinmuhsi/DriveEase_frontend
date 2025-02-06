@@ -9,6 +9,7 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 import Reviews from './Reviews';
 import toast from 'react-hot-toast';
 import { vehicleState } from '../../redux/vehicleSlice';
+import { vehicleSchema } from './Reviews';
 
 interface Vehicle {
   _id: string;
@@ -28,6 +29,7 @@ const FetchCategoryFull = () => {
     const navigate=useNavigate()
     const [showmodal,setShowModal]=useState(false)
     const [vehicleid,setvehicleid]=useState(String)
+    const [vehicle,setvehicle]=useState<vehicleSchema[]|null>()
 
     const onclose=()=>{
       setShowModal(false)
@@ -39,14 +41,23 @@ const FetchCategoryFull = () => {
     }
 
     const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 2;
+  const itemsPerPage = 3;
 
   // Calculate total pages
   const totalPages = Math.ceil(vehicles.length / itemsPerPage);
 
   // Get current items
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = vehicles.slice(startIndex, startIndex + itemsPerPage);
+  let currentItems = vehicles.slice(startIndex, startIndex + itemsPerPage);
+
+  setvehicle(currentItems)
+
+  const handlefilter=(value:string)=>{
+   currentItems=currentItems.filter((val)=>val.brand===value)
+    console.log(currentItems,'jjjjjjj');
+    
+    
+  }
 
   // Handle page change
   const goToPage = (page: number) => {
@@ -66,12 +77,54 @@ const FetchCategoryFull = () => {
   return (
     <div>
       <Header />
-      <div className="pt-20 flex flex-col items-center">
-        {currentItems.map((data:Vehicle) => (
-       <div className='bg-green-300 w-8/12 m-3 rounded-xl shadow-md'>
+      <div className='flex gap-4'>
+        <div>
+          <div className=' w-60 m-4 rounded border p-2 '>
+            <p className='border-b p-4 font-bold'>Choose Category</p>
+            
+            <input type="checkbox"
+            onChange={()=>handlefilter('Mahindra')}
+            />
+            <label htmlFor=""> Sedan</label>
+            
+            <br />
+            <input type="checkbox" />
+            <label htmlFor=""> Hatchback</label>
+            <br />
+            <input type="checkbox" />
+            <label htmlFor=""> SUV</label>
+
+            <p className='p-3 border-b border-t m-2 font-bold'>Fuel Type</p>
+            <input type="checkbox" />
+            <label htmlFor="">  Petrol</label>
+
+            <br />
+            <input type="checkbox" />
+            <label htmlFor="">  Diesel</label>
+
+
+            <br />
+            <input type="checkbox" />
+            <label htmlFor=""> Electric</label>
+
+           <p className='p-3 border-b border-t m-2 font-bold'>Transmission Type</p>
+
+           <input type="checkbox" />
+           <label htmlFor=""> Manual</label>
+
+           <br />
+            <input type="checkbox" />
+            <label htmlFor="">  Automatic</label>
+          </div>
+
+        </div>
+
+        <div className="pt-20 flex flex-wrap items-center">
+        {vehicle?.map((data:Vehicle) => (
+       <div className='border border-green-400 w-5/12 m-3 rounded-xl shadow-md'>
 
         
-          <div className="  h-auto rounded-xl p-5 flex justify-around">
+          <div className=" h-56 rounded-xl p-5 flex justify-around">
             <div>
               <p className="text-xl font-bold">{data.name}</p>
               <div className="flex text-sm font-semibold p-3">
@@ -82,7 +135,7 @@ const FetchCategoryFull = () => {
             </div>
 
             <div className=''>
-              <img src={data.image} alt="car-image" className="rounded-xl w-56 h-40 object-fill shadow-md " />
+              <img src={data.image} alt="car-image" className="rounded-xl w-56 h-40 object-fill shadow-md border border-green-400" />
             </div>
 
           
@@ -108,6 +161,9 @@ const FetchCategoryFull = () => {
       </div>   
         ))}
       </div>
+      </div>
+      
+      
 
       <div className="flex items-center space-x-2 justify-center pt-16">
         <button

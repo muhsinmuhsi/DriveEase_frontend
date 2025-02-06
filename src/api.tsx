@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
    
-    baseURL: "https://driveease-backend.onrender.com/api/users",
+    baseURL: "http://localhost:8080/api/users",
     withCredentials: true,
 
 });
@@ -11,3 +11,4 @@ const api = axios.create({
 
 export default api
 export const googleAuth = (code:string) => api.get(`/googleauth?code=${code}`);
+// "https://driveease-backend.onrender.com/api/users"
