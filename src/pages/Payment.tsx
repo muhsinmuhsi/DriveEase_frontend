@@ -74,6 +74,7 @@ const Payment = () => {
             `/vehicle/payment/${userparse._id}`,
             {
               amount: totalAmount,
+              carId:vehicle?._id,
               vehicleName: vehicle?.name,
               startDate: startDate,
               endDate: endDate,
