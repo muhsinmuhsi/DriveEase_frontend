@@ -2,8 +2,7 @@ import  { useEffect, useState } from 'react'
 import Header from '../components/header/Header'
 import Footer from '../components/features/Footer'
 import api from '../api'
-import { userschema } from '../../../../server/src/models/User';
-import { bookings } from '../../../../server/src/models/Bookings';
+import { bookings, userschema } from '../components/fetch/Reviews';
 const Mybookings = () => {
     const [bookings,setbookings]=useState([])
     const [currentUser,setCurrentUser]= useState<userschema|undefined>()
