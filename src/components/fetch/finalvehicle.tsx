@@ -118,7 +118,7 @@ const Finalvehicle = () => {
     </div>
 <p className='text-2xl font-bold text-center pt-6'> Read Reviews Hear </p>
    <div className='flex justify-center'>
-         <div className='w-7/12 h-56 overflow-auto scrollbar-none   border border-black rounded-lg  m-6'>
+         <div className='w-7/12 h-56 overflow-auto scrollbar-none   border border-green-400 shadow-md rounded-lg  m-6'>
                 
                 {
                     vehicle?.Reviews?.length===0?<p className='text-lg font-bold text-center'>no reviews yet </p>:(

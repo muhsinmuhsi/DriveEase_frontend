@@ -11,3 +11,4 @@ const api = axios.create({
 
 export default api
 export const googleAuth = (code:string) => api.get(`/googleauth?code=${code}`);
+// "https://driveease-backend.onrender.com/api/users"

@@ -1,3 +1,4 @@
+
 import Header from '../components/header/Header';
 import Facilities from '../components/features/Facilities';
 import FeaturedVehicles from '../components/features/FeaturedVehicles';
@@ -8,6 +9,7 @@ import Emailsubscribtion from "../components/features/Emailsubscribtion";
 import Datepickerdiv from "../components/features/Datepicker";
 import Footer from "../components/features/Footer";
 import carrentbanner from '../assets/carrent banner.jpg';
+import Recommendation from '../components/fetch/recommendation';
 
 const Home = () => {
   return (
@@ -23,6 +25,7 @@ const Home = () => {
       <div className="px-4 md:px-8 lg:px-16">
         <Datepickerdiv />
         <Facilities />
+        <Recommendation/>
         <FeaturedVehicles />
         <WhyDriveEase />
         <Workflow />

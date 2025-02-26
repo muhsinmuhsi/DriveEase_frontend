@@ -11,7 +11,7 @@ import Availablevehicles from "../components/fetch/Availablevehicles";
 import Finalvehicle from "../components/fetch/finalvehicle";
 import DocumentCollect from "../pages/DocumentCollect";
 import Payment from "../pages/Payment";
-import Mybookings from "../pages/Mybookings";
+import Mybookings from "../pages/profile";
 import AdminLogin from "../pages/adminpages/AdminLogin";
 import { Toaster } from "react-hot-toast";
 
