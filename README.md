@@ -1,50 +1,102 @@
-# React + TypeScript + Vite
+# 🚗 DriveEase - Car Rental Web Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to **DriveEase**, a modern and user-friendly car rental platform designed to make renting vehicles seamless and hassle-free. Built with the **MERN stack (MongoDB, Express, React, Node.js)**, DriveEase offers a smooth booking experience for users while providing a powerful admin dashboard for managing bookings and fleet operations.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 🔹 User Features
+- 🚘 Browse available cars with filters (brand, price, availability, etc.).
+- 📅 Book cars with a flexible pickup and drop-off schedule.
+- 💰 Secure online payments for hassle-free transactions.
+- 📝 View and manage booking history.
+- ⭐ Leave reviews and ratings for rented vehicles.
+- 🤖 AI-based car suggestions tailored to user preferences.
 
-## Expanding the ESLint configuration
+### 🔹 Admin Features
+- 📊 Dashboard for monitoring bookings and revenue.
+- 🚗 Manage car listings (add, edit, delete vehicles).
+- 🔄 Approve or reject rental requests.
+- 📉 View analytics on user engagement and revenue growth.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🛠️ Tech Stack
 
-- Configure the top-level `parserOptions` property like this:
+| Technology | Description |
+|------------|------------|
+| **Frontend** | React.js, Tailwind CSS |
+| **Backend** | Node.js, Express.js |
+| **Database** | MongoDB (Mongoose ORM) |
+| **Authentication** | JWT (JSON Web Token) |
+| **Payment Gateway** | Razorpay |
+| **State Management** | Redux Toolkit |
+| **Deployment** |  Vercel |
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 📸 Screenshots
+![Screenshot (209)](https://github.com/user-attachments/assets/8683bbe9-8e13-4c30-b895-e4420a79f087)
+
+## ⚡ Getting Started
+
+### 🔧 Prerequisites
+- Node.js (v16+)
+- MongoDB (Local or Atlas)
+- A Razorpay account (for payment integration)
+
+### 🔹 Installation
+```sh
+# Clone the repository
+git clone https://github.com/yourusername/driveease.git
+cd driveease
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+#### 📌 Backend Setup
+```sh
+cd server
+npm install
+npm run dev
 ```
+
+#### 📌 Frontend Setup
+```sh
+cd client
+npm install
+npm run dev
+```
+
+## 🌍 Environment Variables
+Create a `.env` file in the `server` folder and add:
+```
+PORT=8080
+MONGO_URI=your mongo db url
+EMAIL_PASS=email password
+EMAIL_USER=email for google authentication
+JWT_SECRET=jwt secret
+JWT_EXPIRE_IN=90d
+JWT_COOKIE_EXPIRE_IN=90
+CLIENT_ID=64442170894-google client id
+CLIENT_SECRET=google client secret 
+ADMIN_EMAIL=admin email
+ADMIN_PASSWORD=add admin password for admin login
+ADMIN_SECRET=create admin secret for jwt authentication
+Cloud_name=cloudnary name
+Cloud_API_key=cloudnary key
+Cloud_API_secret= your cloudnary secret 
+Razorpay_key_id=rezorpay key id
+Razorpay_key_secret=your razorpay key secret
+
+```
+
+## 🚀 Deployment
+You can deploy DriveEase on AWS, Vercel, or Render for production.
+
+## 👨‍💻 Contributing
+We welcome contributions! Feel free to submit pull requests or report issues.
+
+## 📄 License
+MIT License © 2025 [Your Name](https://github.com/yourusername)
+
+## 🌟 Show Your Support
+If you like this project, please ⭐ star the repository!
+
+---
+
+🚀 **DriveEase - Making Car Rentals Easier & Smarter!**
+
