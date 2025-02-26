@@ -56,9 +56,7 @@ const Mybookings = () => {
           total bookings
         </p>
         <div className='bg-green-300 rounded-full w-32 h-32 flex flex-col items-center justify-center'>
-        <p className='font-semibold text-2xl'>
-          {currentUser?.Bookings.length}
-        </p>
+        <p className='font-semibold text-2xl'>{bookings.length}</p>
         </div>
       </div>
 
