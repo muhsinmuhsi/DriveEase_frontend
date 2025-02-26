@@ -16,6 +16,9 @@ const AdminLogin = () => {
     password:password,
    })
 
+   console.log(response,'this is response of admin login');
+   
+
    if(response.status===200){
     const {token}=response.data
     localStorage.setItem('admin_token',token)

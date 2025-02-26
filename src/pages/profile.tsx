@@ -3,11 +3,15 @@ import Header from '../components/header/Header'
 import Footer from '../components/features/Footer'
 import api from '../api'
 import { userschema } from '../../../../server/src/models/User';
-import { vehicleSchema } from '../redux/vehicleSlice';
+import { bookings } from '../../../../server/src/models/Bookings';
 const Mybookings = () => {
     const [bookings,setbookings]=useState([])
     const [currentUser,setCurrentUser]= useState<userschema|undefined>()
-    const createdDate=new Date(currentUser?.created_at).toLocaleDateString()
+    const createdDate = currentUser?.created_at 
+  ? new Date(currentUser.created_at).toLocaleDateString()
+  : "N/A";
+    const fullAmount=bookings.reduce((acc,data:bookings)=>acc+=data.amount,0)
+
 
     useEffect(()=>{
         const fetchbookings=async()=>{
@@ -15,9 +19,8 @@ const Mybookings = () => {
             const userparse=JSON.parse(user as string)
             setCurrentUser(userparse)
             
-
             try {
-                const response=await api.get(`/mybookings/${userparse._id}`)
+                const response=await api.get(`/mybookings/${userparse?._id}`)
                 setbookings(response.data.user.Bookings)
             } catch (error) {
                 console.log(error,'error');
@@ -26,7 +29,7 @@ const Mybookings = () => {
         }
         fetchbookings()
 
-    },[])
+    },[bookings])
     
     
     return (
@@ -34,8 +37,9 @@ const Mybookings = () => {
             <Header/>
   
   
-
-  <div className="grid grid-cols-5 grid-rows-5 gap-4 pt-3">
+{
+  currentUser?(
+ <div className="grid grid-cols-5 grid-rows-5 gap-4 pt-3">
     <div className="row-span-5 mr-6">
     <div className='  h-80 w-full flex flex-col items-center gap-3 '>
         <img className=' rounded-full  w-24 h-24' src={currentUser?.profileImg} alt="" />
@@ -63,11 +67,11 @@ const Mybookings = () => {
     <div className="col-span-2 row-span-2 col-start-4">
     <div className='shadow-md w-80 h-64 flex flex-col items-center justify-center gap-3 rounded-md'>
         <p className='text-xl font-semibold '>
-        Echoes of Your Experience 
+       Total spend amount
         </p>
         <div className='bg-green-300 rounded-full w-32 h-32 flex flex-col items-center justify-center'>
         <p className='font-semibold text-2xl'>
-          {currentUser?.Reviews.length}
+          {fullAmount}
         </p>
         </div>
       </div>
@@ -112,15 +116,14 @@ const Mybookings = () => {
     </div>
 </div>
     
+  ):(
+    <p className='font-semibold text-2xl text-center'>pleas login first &#128522;</p>
 
+  )
+  
+}
+ 
 
-
-    
-
-         
-         
-           
-          
           <Footer/>
         </div>
       );

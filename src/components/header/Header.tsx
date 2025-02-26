@@ -3,20 +3,24 @@ import logo from '../../assets/logo-transparent-png.png'
 import { IoMenu } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { userschema } from '../../../../../server/src/models/User';
 
 const ResponsiveNavbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [loggin,setloggin]=useState(false)
+  const [currentUser,setCurrentUser]=useState<userschema>()
   const navigate = useNavigate()
 
   useEffect(()=>{
     const user=localStorage.getItem('user')
+    const userpars=JSON.parse(user as string)
+    setCurrentUser(userpars)
     if(user){
       setloggin(true)
     }else{
       setloggin(false)
     }
-  })
+  },[])
 
   const handleLogout = () => {
     Swal.fire({
@@ -74,8 +78,12 @@ const ResponsiveNavbar = () => {
             </button>
             {
               loggin ? <ul className="flex flex-col gap-4 text-lg font-semibold text-gray-900">
+               <div className=' flex justify-start p-2 '>
+                <img className='rounded-full w-20 h-20' src={currentUser?.profileImg} alt="" />
+                </div> 
+              <li className='text-sm'>{currentUser?.username}</li>
+              <li className="hover:text-green-600 cursor-pointer" onClick={()=>navigate('/mybookings')}>Profile</li>
               <li className="hover:text-green-600 cursor-pointer" onClick={()=>handleLogout()}>Logout</li>
-              <li className="hover:text-green-600 cursor-pointer" onClick={()=>navigate('/mybookings')}>MyBookings</li>
             </ul>:<ul className="flex flex-col gap-4 text-lg font-semibold text-gray-900">
               <li className="hover:text-green-600 cursor-pointer focus:text-green-600" onClick={()=>navigate('/register')}>Sign Up </li>
               <li className="hover:text-green-600 cursor-pointer focus:bg-green-400" onClick={()=>navigate('/Login')}>Sign In</li>
