@@ -3,7 +3,10 @@ import logo from '../../assets/logo-transparent-png.png'
 import { IoMenu } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { userschema } from '../../../../../server/src/models/User';
+import { userschema } from '../fetch/Reviews';
+
+
+
 
 const ResponsiveNavbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { vehicleSchema } from "./Reviews";
 import api from "../../api";
 import { IoMdStar, IoMdStarOutline } from "react-icons/io";

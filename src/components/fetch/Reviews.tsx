@@ -22,6 +22,38 @@ export interface vehicleSchema {
   Reviews?: Review[]; // Add the Reviews property as an array of Review
 }
 
+export interface userschema {
+    id:string;
+    username:string;
+    email:string;
+    password:string;
+    profileImg:string;
+    role:string;
+    isverified:boolean;
+    otp:string|undefined;
+    otpExpires:number|undefined;
+    resetpassword:string;
+    restpasswordOtpExpires:Date;
+    created_at:Date;
+    Bookings:[];
+    Reviews:Review[];
+
+}
+
+
+export interface bookings {
+    _id:string,
+    userId:string,
+    carId:string,
+    vehicleName:string,
+    startDate:Date,
+    endDate:Date,
+    amount:number,
+    status:boolean,
+    paymentId:string,
+    orderId:string
+}
+
 interface ReviewsProps {
   isopen: boolean;
   onclose: () => void;
