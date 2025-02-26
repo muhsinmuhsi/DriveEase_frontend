@@ -35,7 +35,7 @@ export interface userschema {
     resetpassword:string;
     restpasswordOtpExpires:Date;
     created_at:Date;
-    Bookings:[];
+    Bookings:bookings[];
     Reviews:Review[];
 
 }
@@ -51,7 +51,8 @@ export interface bookings {
     amount:number,
     status:boolean,
     paymentId:string,
-    orderId:string
+    orderId:string,
+    createdAt:Date
 }
 
 interface ReviewsProps {

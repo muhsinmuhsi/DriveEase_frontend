@@ -89,7 +89,7 @@ const Mybookings = () => {
                 </tr>
               </thead>
               <tbody>
-                {bookings.map((data:any,index) => {
+                {bookings.map((data:bookings,index) => {
                   const pickupDate = new Date(data.startDate).toLocaleDateString();
                   const dropoffDate = new Date(data.endDate).toLocaleDateString();
                   const bookedDate = new Date(data.createdAt).toLocaleDateString();
